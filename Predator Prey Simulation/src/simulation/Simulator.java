@@ -1,27 +1,33 @@
 package simulation;
 
+import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Keyboard;
+
 import world.World;
 
 public class Simulator {
 
-	public void setWorld(World world) {
-		
-	}
+	private World world;
 
-	public void reset() {
-		
+	public void setWorld(World world) {
+		this.world = world;
+	}
+	
+	public void init() throws LWJGLException {
+		Keyboard.create();
+	}
+	
+	public void updateSimulation() {
+		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
+			
+		}
 	}
 
 	public boolean isFinished() {
 		return false;
 	}
 
-	public void updateSimulation() {
+	public void reset() {
 		
 	}
-
-	public void init() {
-		
-	}
-
 }
