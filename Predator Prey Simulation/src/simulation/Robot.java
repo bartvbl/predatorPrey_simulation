@@ -1,11 +1,17 @@
 package simulation;
 
+import core.SimulationSettings;
 import geom.Point;
 
 public class Robot {
 	private Point location = new Point(1, 1);
 	private double rotation = 0;
+	public final RobotType type;
 	
+	public Robot(RobotType type) {
+		this.type = type;
+	}
+
 	public void setLocation(Point newLocation) {
 		this.location = newLocation;
 	}
@@ -28,5 +34,13 @@ public class Robot {
 
 	public double getRotation() {
 		return rotation;
+	}
+
+	public double getWheelSpeed() {
+		if(this.type == RobotType.PREDATOR_RED) {
+			return SimulationSettings.predatorSpeed;
+		} else {
+			return SimulationSettings.preySpeed;
+		}
 	}
 }

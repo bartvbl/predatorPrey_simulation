@@ -44,10 +44,10 @@ public class Main {
 
 	private void init() {
 		try {
-			simulator.init();
-			simulator.setWorld(world);
 			renderer.init();
 			renderer.setWorld(world);
+			simulator.init();
+			simulator.setWorld(world);
 		} catch (Exception e) {
 			exitOnLaunchError(e);
 		}

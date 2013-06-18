@@ -6,23 +6,43 @@ import simulation.Robot;
 import simulation.RobotType;
 
 public class World {
-	private final Robot predatorRobot = new Robot();
-	private final Robot preyRobot = new Robot();
+	private final Robot predatorRobot = new Robot(RobotType.PREDATOR_RED);
+	private final Robot preyRobot = new Robot(RobotType.PREY_BLUE);
 	
-	public void setRobotLocation(RobotType type, Point newLocation) {
-		getRobotByType(type).setLocation(newLocation);
+	public void moveLeftWheel(RobotType type, double distance) {
+		Robot robot = getRobotByType(type);
+	
+		double angle = -distance;
+		double currentAngleRadians = Math.toRadians(robot.getRotation()) + Math.PI;
+
+		double startPositionX = Math.cos(currentAngleRadians) * SimulationSettings.robotRadius;
+		double startPositionY = Math.sin(currentAngleRadians) * SimulationSettings.robotRadius;
+		double endPositionX = Math.cos(currentAngleRadians + angle) * SimulationSettings.robotRadius;
+		double endPositionY = Math.sin(currentAngleRadians + angle) * SimulationSettings.robotRadius;
+		
+		double dx = endPositionX - startPositionX;
+		double dy = endPositionY - startPositionY;
+
+		robot.rotate(Math.toDegrees(angle));
+		robot.move(dx, dy);
 	}
 	
-	public void moveRobot(RobotType type, double dx, double dy) {
-		getRobotByType(type).move(dx, dy);
-	}
-	
-	public void setRobotRotation(RobotType type, double rotation) {
-		getRobotByType(type).setRotation(rotation);
-	}
-	
-	public void rotateRobot(RobotType type, double rotation) {
-		getRobotByType(type).rotate(rotation);
+	public void moveRightWheel(RobotType type, double distance) {
+		Robot robot = getRobotByType(type);
+		
+		double angle = distance;
+		double currentAngleRadians = Math.toRadians(robot.getRotation());
+
+		double startPositionX = Math.cos(currentAngleRadians) * SimulationSettings.robotRadius;
+		double startPositionY = Math.sin(currentAngleRadians) * SimulationSettings.robotRadius;
+		double endPositionX = Math.cos(currentAngleRadians + angle) * SimulationSettings.robotRadius;
+		double endPositionY = Math.sin(currentAngleRadians + angle) * SimulationSettings.robotRadius;
+		
+		double dx = endPositionX - startPositionX;
+		double dy = endPositionY - startPositionY;
+
+		robot.rotate(Math.toDegrees(angle));
+		robot.move(dx, dy);
 	}
 	
 	public Point getRobotLocation(RobotType type) {
