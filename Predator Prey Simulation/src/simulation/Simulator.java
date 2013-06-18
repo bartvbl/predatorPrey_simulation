@@ -20,7 +20,19 @@ public class Simulator {
 	}
 	
 	public void updateSimulation() {
+		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
+			world.moveLeftWheel(RobotType.PREDATOR_RED, SimulationSettings.predatorSpeed);
+			world.moveRightWheel(RobotType.PREDATOR_RED, SimulationSettings.predatorSpeed);
+		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
+			world.moveLeftWheel(RobotType.PREDATOR_RED, -SimulationSettings.predatorSpeed);
+			world.moveRightWheel(RobotType.PREDATOR_RED, SimulationSettings.predatorSpeed);
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
+			world.moveLeftWheel(RobotType.PREDATOR_RED, -SimulationSettings.predatorSpeed);
+			world.moveRightWheel(RobotType.PREDATOR_RED, -SimulationSettings.predatorSpeed);
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
 			world.moveLeftWheel(RobotType.PREDATOR_RED, SimulationSettings.predatorSpeed);
 			world.moveRightWheel(RobotType.PREDATOR_RED, -SimulationSettings.predatorSpeed);
 		}

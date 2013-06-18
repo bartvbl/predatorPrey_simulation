@@ -24,7 +24,7 @@ public class World {
 		double dy = endPositionY - startPositionY;
 
 		robot.rotate(Math.toDegrees(angle));
-		robot.move(dx, dy);
+		moveRobot(robot, dx, dy);
 	}
 	
 	public void moveRightWheel(RobotType type, double distance) {
@@ -42,6 +42,26 @@ public class World {
 		double dy = endPositionY - startPositionY;
 
 		robot.rotate(Math.toDegrees(angle));
+		moveRobot(robot, dx, dy);
+	}
+	
+	private void moveRobot(Robot robot, double dx, double dy) {
+		Point robotLocation = robot.getLocation();
+		double newX = robotLocation.x + dx;
+		double newY = robotLocation.y + dy;
+		double robotRadius = SimulationSettings.robotRadius;
+		if(newX - robotRadius <= 0) {
+			dx = 0;
+		}
+		if(newX + robotRadius >= SimulationSettings.BOARD_WIDTH) {
+			dx = 0;
+		}
+		if(newY - robotRadius <= 0) {
+			dy = 0;
+		}
+		if(newY + robotRadius >= SimulationSettings.BOARD_HEIGHT) {
+			dy = 0;
+		}
 		robot.move(dx, dy);
 	}
 	
