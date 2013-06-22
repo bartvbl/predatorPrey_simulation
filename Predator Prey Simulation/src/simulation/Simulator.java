@@ -3,8 +3,6 @@ package simulation;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 
-import core.SimulationSettings;
-
 import world.World;
 
 public class Simulator {
@@ -20,21 +18,17 @@ public class Simulator {
 	}
 	
 	public void updateSimulation() {
-		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			world.moveLeftWheel(RobotType.PREDATOR_RED, SimulationSettings.predatorSpeed);
-			world.moveRightWheel(RobotType.PREDATOR_RED, SimulationSettings.predatorSpeed);
+		if(Keyboard.isKeyDown(Keyboard.KEY_A)){
+			world.moveLeftWheel(RobotType.PREDATOR_RED, -0.05);
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			world.moveLeftWheel(RobotType.PREDATOR_RED, -SimulationSettings.predatorSpeed);
-			world.moveRightWheel(RobotType.PREDATOR_RED, SimulationSettings.predatorSpeed);
+		if(Keyboard.isKeyDown(Keyboard.KEY_Q)){
+			world.moveLeftWheel(RobotType.PREDATOR_RED, 0.05);
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			world.moveLeftWheel(RobotType.PREDATOR_RED, -SimulationSettings.predatorSpeed);
-			world.moveRightWheel(RobotType.PREDATOR_RED, -SimulationSettings.predatorSpeed);
+		if(Keyboard.isKeyDown(Keyboard.KEY_W)){
+			world.moveRightWheel(RobotType.PREDATOR_RED, 0.05);
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			world.moveLeftWheel(RobotType.PREDATOR_RED, SimulationSettings.predatorSpeed);
-			world.moveRightWheel(RobotType.PREDATOR_RED, -SimulationSettings.predatorSpeed);
+		if(Keyboard.isKeyDown(Keyboard.KEY_S)){
+			world.moveRightWheel(RobotType.PREDATOR_RED, -0.05);
 		}
 	}
 

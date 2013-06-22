@@ -1,0 +1,11 @@
+- 6 infrared proximity sensors. 6 on the front, 2 on the back
+	- max detection range: 3-4cm
+- view angle of predator: 36 degrees
+	- cut into sectors of about 7 degrees. Resulted into 5 vision neurons
+	- just check in which photoreceptor the prey lies, set its value to 1 if it is.
+- arena is 47x47 cm
+- wheels updated every 100ms
+- robots were positioned along a horizontal line in the center of the arena. Always positioned at random rotations.
+- 100 populations of 100 individuals. Each individual had to face best individuals from previous generation
+- two neurons with feedback loops
+	- 7-8-7 feedforward?
