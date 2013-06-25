@@ -2,13 +2,11 @@ package neural;
 
 public class NeuralNetworkLayer {
 	private final double[] axonValues;
-	private final int length;
 	private final Neuron[] neurons;
 
-	public NeuralNetworkLayer(int length) {
-		this.axonValues = new double[length];
-		this.length = length;
-		this.neurons = new Neuron[length];
+	public NeuralNetworkLayer(Neuron[] layerNeurons) {
+		this.axonValues = new double[layerNeurons.length];
+		this.neurons = layerNeurons;
 	}
 	
 	public void simulate(double[] previousLayerAxonValues) {
