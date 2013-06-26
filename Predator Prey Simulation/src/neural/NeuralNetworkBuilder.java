@@ -5,9 +5,5 @@ public class NeuralNetworkBuilder {
 		
 	}
 	
-	public void addNeuron(Neuron neuron) {
-		
-	}
-	
 	
 }

@@ -2,11 +2,7 @@ package dna;
 
 import neural.NeuralNetwork;
 
-public class DNA {
-	public byte[] toDNAString(NeuralNetwork network) {
-		return new byte[1];
-	}
-	
+public class DNAReader {
 	public NeuralNetwork fromDNAString(byte[] dna) {
 		return null;
 	}
