@@ -1,7 +1,7 @@
-package world;
+package simulation.world;
 
 import core.SimulationSettings;
-import geom.Point;
+import rendering.geom.Point;
 import simulation.Robot;
 import simulation.RobotType;
 

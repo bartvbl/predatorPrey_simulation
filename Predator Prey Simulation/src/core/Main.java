@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 import rendering.Renderer;
 import simulation.Simulator;
-import world.World;
+import simulation.world.World;
 
 public class Main {
 	private final Simulator simulator;

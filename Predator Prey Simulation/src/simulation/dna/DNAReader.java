@@ -1,6 +1,6 @@
-package dna;
+package simulation.dna;
 
-import neural.NeuralNetwork;
+import simulation.neural.NeuralNetwork;
 
 public class DNAReader {
 	public NeuralNetwork fromDNAString(byte[] dna) {

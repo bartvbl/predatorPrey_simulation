@@ -1,14 +1,15 @@
 package rendering;
 
-import gl.FrameUtils;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 
+import rendering.gl.FrameUtils;
+import simulation.world.World;
+
 import core.SimulationSettings;
 import static org.lwjgl.opengl.GL11.*;
 
-import world.World;
 
 public class Renderer {
 	private World world;

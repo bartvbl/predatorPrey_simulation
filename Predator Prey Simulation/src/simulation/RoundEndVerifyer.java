@@ -1,8 +1,8 @@
 package simulation;
 
+import rendering.geom.Point;
+import simulation.world.World;
 import core.SimulationSettings;
-import geom.Point;
-import world.World;
 
 public class RoundEndVerifyer {
 

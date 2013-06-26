@@ -1,10 +1,11 @@
-package dna;
+package simulation.dna;
 
 import java.nio.ByteBuffer;
 
 import org.lwjgl.BufferUtils;
 
-import neural.NeuralNetwork;
+import simulation.neural.NeuralNetwork;
+
 
 public class DNAWriter {
 	private static final int numMetaBytes = 5;

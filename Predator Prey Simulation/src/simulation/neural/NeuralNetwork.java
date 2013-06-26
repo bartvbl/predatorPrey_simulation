@@ -1,4 +1,4 @@
-package neural;
+package simulation.neural;
 
 public class NeuralNetwork {
 	private final NeuralNetworkLayer[] layers;

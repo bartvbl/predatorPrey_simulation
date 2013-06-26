@@ -1,7 +1,7 @@
 package simulation;
 
+import rendering.geom.Point;
 import core.SimulationSettings;
-import geom.Point;
 
 public class Robot {
 	private Point location = new Point(1, 1);

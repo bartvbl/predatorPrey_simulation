@@ -1,4 +1,4 @@
-package neural;
+package simulation.neural;
 
 public abstract class Neuron {
 	protected final double threshold;

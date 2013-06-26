@@ -1,4 +1,4 @@
-package neural;
+package simulation.neural;
 
 public class NeuralNetworkLayer {
 	private final double[] axonValues;

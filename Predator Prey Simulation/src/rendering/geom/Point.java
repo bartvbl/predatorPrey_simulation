@@ -1,4 +1,4 @@
-package geom;
+package rendering.geom;
 
 public class Point {
 	public final double x;

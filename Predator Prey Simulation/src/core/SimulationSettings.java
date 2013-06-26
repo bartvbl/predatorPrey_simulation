@@ -1,6 +1,6 @@
 package core;
 
-import geom.Point;
+import rendering.geom.Point;
 
 public class SimulationSettings {
 	public static final double BOARD_WIDTH = 15;

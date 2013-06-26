@@ -1,15 +1,15 @@
 package rendering;
 
-import geom.Point;
 
 import org.lwjgl.util.Color;
 
 import core.SimulationSettings;
 
+import rendering.geom.Point;
 import simulation.RobotType;
+import simulation.world.World;
 import static org.lwjgl.opengl.GL11.*;
 
-import world.World;
 
 public class RobotDrawer {
 	private static final int predatorRobotDisplayList = createRobotDisplayList(new Color(255, 0, 0));
