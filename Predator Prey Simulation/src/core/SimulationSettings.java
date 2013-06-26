@@ -18,10 +18,14 @@ public class SimulationSettings {
 	public static final int[] distanceSensorDirections = new int[]{};
 	public static final double distanceSensorRange = 1;
 	public static final double distanceSensorNoiseFactor = 0.03;
-	public static final double defaultNeuronThreshold = 0;
 	
 	public static int neuralNetworkPredatorInputCount = 4 + 8 + 5;
 	public static int neuralNetworkPreyInputCount = 4 + 8;
 	public static int neuralNetworkOutputCount = 4;
 	public static int[] neuralNetworkHiddenLayerSizes = new int[]{30, 30, 30};
+	
+	public static final int predatorPopulationSize = 100;
+	public static final int preyPopulationSize = 100;
+	public static final int predatorPackSize = 2;
+	public static final int preyPackSize = 2; 
 }

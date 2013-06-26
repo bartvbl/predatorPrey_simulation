@@ -42,7 +42,7 @@ public class DNAWriter {
 				
 			}
 		}
-		return 0;
+		return byteCount;
 	}
 
 	

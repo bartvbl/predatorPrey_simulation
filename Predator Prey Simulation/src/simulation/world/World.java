@@ -91,7 +91,6 @@ public class World {
 		return robot;
 	}
 
-
 	public int spawnRobot(RobotType type) {
 		int generatedID = robots.size();
 		robots.add(new Robot(type));
@@ -99,6 +98,8 @@ public class World {
 	}
 
 	public void initRobotLocations() {
+		Integer[] predators = getRobotsByType(RobotType.PREDATOR_RED);
+		Integer[] prey = getRobotsByType(RobotType.PREY_BLUE);
 		
 	}
 	
