@@ -32,7 +32,6 @@ public class Main {
 	
 	private void runSimulation() {
 		world.reset();
-		simulator.reset();
 		simulator.nextSimulation();
 		while(!simulator.isFinished() && isRunning) {
 			simulator.updateSimulation();

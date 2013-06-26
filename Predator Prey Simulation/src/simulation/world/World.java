@@ -75,6 +75,10 @@ public class World {
 		return getRobotByID(robotID).getRotation(); 
 	}
 
+	public RobotType getRobotType(int robotID) {
+		return getRobotByID(robotID).type;
+	}
+
 	public void reset() {
 		this.robots.clear();
 	}
@@ -113,4 +117,5 @@ public class World {
 	public void checkCollissions() {
 		RobotCollissionDetector.removeCollidedPrey(robots);
 	}
+
 }

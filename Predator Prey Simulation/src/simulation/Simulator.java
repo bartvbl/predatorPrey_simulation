@@ -26,10 +26,10 @@ public class Simulator {
 			persuitTimedOut = true;
 		}
 		for(NeuralRobotDriver predatorDriver : predatorDrivers) {
-			predatorDriver.update();
+			predatorDriver.simulate();
 		}
 		for(NeuralRobotDriver preyDriver : preyDrivers) {
-			preyDriver.update();
+			preyDriver.simulate();
 		}
 		world.checkCollissions();
 		ticksElapsed++;
@@ -39,14 +39,20 @@ public class Simulator {
 		return RoundEndVerifyer.hasRoundFinished(world, persuitTimedOut);
 	}
 
-	public void reset() {
-		this.ticksElapsed = 0;
-		persuitTimedOut = false;
-	}
-
 	public void nextSimulation() {
+		double roundFitness = (double) ticksElapsed / (double) SimulationSettings.numRoundTicks;
+		simulationQueue.registerRoundOutcome(roundFitness);
+		
+		reset();
+				
 		simulationQueue.next();
 		
+		spawnRobotDrivers();
+		
+		world.initRobotLocations();
+	}
+
+	private void spawnRobotDrivers() {
 		NeuralNetwork[] predatorNetworks = simulationQueue.getCurrentPredatorNetworks();
 		NeuralNetwork[] preyNetworks = simulationQueue.getCurrentPreyNetworks();
 		predatorDrivers = new NeuralRobotDriver[predatorNetworks.length];
@@ -60,7 +66,10 @@ public class Simulator {
 			int robotID = world.spawnRobot(RobotType.PREY_BLUE);
 			preyDrivers[i] = new NeuralRobotDriver(preyNetworks[i], robotID, world);
 		}
-		
-		world.initRobotLocations();
+	}
+
+	private void reset() {
+		this.ticksElapsed = 0;
+		persuitTimedOut = false;
 	}
 }
