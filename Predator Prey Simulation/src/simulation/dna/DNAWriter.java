@@ -10,7 +10,7 @@ import simulation.neural.NeuralNetwork;
 public class DNAWriter {
 	private static final int numMetaBytes = 5;
 	
-	public byte[] toDNAString(NeuralNetwork network) {
+	public byte[] store(NeuralNetwork network) {
 		int byteCount = calculateDNAByteCount(network);
 		ByteBuffer buffer = BufferUtils.createByteBuffer(byteCount);
 		writeNetworkToBuffer(buffer, network);

@@ -1,17 +1,18 @@
 package simulation.world;
 
+import java.util.ArrayList;
+
 import core.SimulationSettings;
 import rendering.geom.Point;
 import simulation.Robot;
 import simulation.RobotType;
 
 public class World {
-	private final Robot predatorRobot = new Robot(RobotType.PREDATOR_RED);
-	private final Robot preyRobot = new Robot(RobotType.PREY_BLUE);
+	private final ArrayList<Robot> robots = new ArrayList<Robot>();
 	
-	public void moveLeftWheel(RobotType type, double distance) {
-		Robot robot = getRobotByType(type);
-	
+	public void moveLeftWheel(int robotID, double distance) {
+		Robot robot = getRobotByID(robotID);
+		
 		double angle = -distance;
 		double currentAngleRadians = Math.toRadians(robot.getRotation()) + Math.PI;
 
@@ -26,9 +27,10 @@ public class World {
 		robot.rotate(Math.toDegrees(angle));
 		moveRobot(robot, dx, dy);
 	}
+
 	
-	public void moveRightWheel(RobotType type, double distance) {
-		Robot robot = getRobotByType(type);
+	public void moveRightWheel(int robotID, double distance) {
+		Robot robot = getRobotByID(robotID);
 		
 		double angle = distance;
 		double currentAngleRadians = Math.toRadians(robot.getRotation());
@@ -65,26 +67,50 @@ public class World {
 		robot.move(dx, dy);
 	}
 	
-	public Point getRobotLocation(RobotType type) {
-		return getRobotByType(type).getLocation();
+	public Point getRobotLocation(int robotID) {
+		return getRobotByID(robotID).getLocation();
 	}
 	
-	public double getRobotRotation(RobotType type) {
-		return getRobotByType(type).getRotation(); 
+	public double getRobotRotation(int robotID) {
+		return getRobotByID(robotID).getRotation(); 
 	}
 
 	public void reset() {
-		predatorRobot.setLocation(SimulationSettings.predatorStartLocation);
-		predatorRobot.setRotation(SimulationSettings.predatorStartRotation);
-		preyRobot.setLocation(SimulationSettings.preyStartLocation);
-		preyRobot.setRotation(SimulationSettings.preyStartRotation);
+		this.robots.clear();
 	}
 
-	private Robot getRobotByType(RobotType type) {
-		if(type == RobotType.PREDATOR_RED) {
-			return this.predatorRobot;
-		} else {
-			return this.preyRobot;
+	private Robot getRobotByID(int robotID) {
+		assert(robotID >= 0);
+		assert(robotID < robots.size());
+		
+		Robot robot = robots.get(robotID);
+		return robot;
+	}
+
+
+	public int spawnRobot(RobotType type) {
+		int generatedID = robots.size();
+		robots.add(new Robot(type));
+		return generatedID;
+	}
+
+	public void initRobotLocations() {
+		
+	}
+	
+	public Integer[] getRobotsByType(RobotType type) {
+		ArrayList<Integer> robotIDs = new ArrayList<Integer>();
+		for(int i = 0; i < robots.size(); i++) {
+			Robot robot = robots.get(i);
+			if(robot.type == type) {
+				robotIDs.add(i);
+			}
 		}
+		return robotIDs.toArray(new Integer[robotIDs.size()]);
+	}
+
+
+	public void checkCollissions() {
+		RobotCollissionDetector.removeCollidedPrey(robots);
 	}
 }

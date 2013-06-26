@@ -6,6 +6,7 @@ import org.lwjgl.util.Color;
 import core.SimulationSettings;
 
 import rendering.geom.Point;
+import simulation.Robot;
 import simulation.RobotType;
 import simulation.world.World;
 import static org.lwjgl.opengl.GL11.*;
@@ -16,20 +17,26 @@ public class RobotDrawer {
 	private static final int preyRobotDisplayList = createRobotDisplayList(new Color(0, 0, 255));
 
 	public static void drawRobots(World world) {
-		drawPredator(world);
+		drawPredators(world);
 		drawPrey(world);
 	}
 
-	private static void drawPredator(World world) {
-		Point location = world.getRobotLocation(RobotType.PREDATOR_RED);
-		double rotation = world.getRobotRotation(RobotType.PREDATOR_RED);
-		drawRobot(predatorRobotDisplayList, location, rotation);
+	private static void drawPredators(World world) {
+		Integer[] predators = world.getRobotsByType(RobotType.PREDATOR_RED);
+		for(int predatorID : predators) {
+			Point location = world.getRobotLocation(predatorID);
+			double rotation = world.getRobotRotation(predatorID);
+			drawRobot(predatorRobotDisplayList, location, rotation);
+		}
 	}
 	
 	private static void drawPrey(World world) {
-		Point location = world.getRobotLocation(RobotType.PREY_BLUE);
-		double rotation = world.getRobotRotation(RobotType.PREY_BLUE);
-		drawRobot(preyRobotDisplayList, location, rotation);
+		Integer[] predators = world.getRobotsByType(RobotType.PREY_BLUE);
+		for(int preyID : predators) {
+			Point location = world.getRobotLocation(preyID);
+			double rotation = world.getRobotRotation(preyID);
+			drawRobot(preyRobotDisplayList, location, rotation);
+		}
 	}
 
 	private static void drawRobot(int displayList, Point location, double rotation) {

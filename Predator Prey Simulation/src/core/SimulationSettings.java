@@ -17,5 +17,7 @@ public class SimulationSettings {
 	
 	public static final double robotRadius = 0.45;
 	
+	public static final int numRoundTicks = 3000;
+	
 	
 }
