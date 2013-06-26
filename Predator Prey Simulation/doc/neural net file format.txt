@@ -1,8 +1,7 @@
 network file:
 0x4E 0x4E 0x45 0x54 (NNET, header)
 4 bytes, int: num input neurons
-4 bytes, int: num hidden layers
-4 bytes, int: num output neurons
+4 bytes, int: num layers
 for (num layers):
 	4 bytes, int: neurons per layer
 for (num layers):

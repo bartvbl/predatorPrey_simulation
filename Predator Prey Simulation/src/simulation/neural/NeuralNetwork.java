@@ -2,7 +2,7 @@ package simulation.neural;
 
 public class NeuralNetwork {
 	private final NeuralNetworkLayer[] layers;
-	private final int numInputNeurons;
+	public final int numInputNeurons;
 
 	public NeuralNetwork(NeuralNetworkLayer[] layers, int numInputNeurons) {
 		assert(layers.length >= 2);
@@ -20,5 +20,9 @@ public class NeuralNetwork {
 			previousLayerAxonValues = layer.getAxonValues();
 		}
 		return layers[layers.length - 1].getAxonValues();
+	}
+
+	public NeuralNetworkLayer[] getLayers() {
+		return layers;
 	}
 }

@@ -9,3 +9,11 @@
 - 100 populations of 100 individuals. Each individual had to face best individuals from previous generation
 - two neurons with feedback loops
 	- 7-8-7 feedforward?
+- the first layer is not stored in the neural network class. Only the hidden and output layer is present.
+	
+	
+procedure:
+100 individuals, prey and predator populations
+top 10: reproduce 3 times
+top 11-20: reproduce 2 times
+fill up remaining 50 with randomized networks

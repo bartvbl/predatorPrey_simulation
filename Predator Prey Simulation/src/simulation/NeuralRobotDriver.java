@@ -21,7 +21,7 @@ public class NeuralRobotDriver {
 		this.controlledRobotID = robotID;
 		this.world = world;
 		this.controlledRobotType = world.getRobotType(robotID);
-		Arrays.fill(new double[SimulationSettings.numNeuralNetworkOutputs], 0.5);
+		Arrays.fill(new double[SimulationSettings.neuralNetworkOutputCount], 0.5);
 	}
 
 	public void simulate() {
@@ -37,7 +37,7 @@ public class NeuralRobotDriver {
 		
 		double[] networkOutput = neuralNetwork.simulate(inputAxonValues);
 		
-		assert(networkOutput.length == SimulationSettings.numNeuralNetworkOutputs);
+		assert(networkOutput.length == SimulationSettings.neuralNetworkOutputCount);
 		this.previousNetworkOutput = networkOutput;		
 		
 		double deltaLeftWheel = networkOutput[0] - networkOutput[1];
