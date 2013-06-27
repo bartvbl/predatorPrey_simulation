@@ -28,6 +28,4 @@ public class SimulationSettings {
 	
 	public static final int predatorPopulationSize = 100;
 	public static final int preyPopulationSize = 100;
-	public static final int predatorPackSize = 2;
-	public static final int preyPackSize = 2; 
 }
