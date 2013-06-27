@@ -41,7 +41,9 @@ public class Simulator {
 
 	public void nextSimulation() {
 		double roundFitness = (double) ticksElapsed / (double) SimulationSettings.numRoundTicks;
-		simulationQueue.registerRoundOutcome(roundFitness);
+		double predatorFitness = 1 - roundFitness;
+		double preyFitness = roundFitness;
+		simulationQueue.registerRoundOutcome(predatorFitness, preyFitness);
 		
 		reset();
 				
