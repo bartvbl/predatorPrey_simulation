@@ -1,5 +1,6 @@
 package simulation;
 
+import core.SimulationSettings;
 import simulation.neural.NeuralNetwork;
 import simulation.population.Population;
 import simulation.population.PopulationGenerator;
@@ -10,14 +11,16 @@ public class SimulationQueue {
 	private Queue<Individual[]> preyRoundQueue = new Queue<Individual[]>();
 	private Individual[] selectedPredators;
 	private Individual[] selectedPrey;
-	private RoundHandler roundHandler;
+	private RoundGenerator predatorRoundHandler;
+	private RoundGenerator preyRoundHandler;
 	
 	public void init() {
 		predatorRoundQueue.clear();
 		preyRoundQueue.clear();
 		Population startPredatorPopulation = PopulationGenerator.generatePredatorPopulation();
 		Population startPreyPopulation = PopulationGenerator.generatePreyPopulation();
-		roundHandler = new RoundHandler(startPredatorPopulation, startPreyPopulation);
+		predatorRoundHandler = new RoundGenerator(startPredatorPopulation, SimulationSettings.predatorPackSize);
+		preyRoundHandler = new RoundGenerator(startPreyPopulation, SimulationSettings.preyPackSize);
 		nextBatch();
 	}
 
@@ -30,9 +33,10 @@ public class SimulationQueue {
 	}
 	
 	private void nextBatch() {
-		roundHandler.nextBatch();
-		predatorRoundQueue.enqueueAll(roundHandler.getPredatorIndividuals());
-		preyRoundQueue.enqueueAll(roundHandler.getPreyIndividuals());
+		predatorRoundHandler.nextBatch();
+		predatorRoundQueue.enqueueAll(predatorRoundHandler.getIndividuals());
+		preyRoundHandler.nextBatch();
+		preyRoundQueue.enqueueAll(preyRoundHandler.getIndividuals());
 	}
 	
 	public void registerRoundOutcome(double predatorFitness, double preyFitness) {
@@ -59,6 +63,4 @@ public class SimulationQueue {
 		}
 		return networks;
 	}
-
-
 }

@@ -12,8 +12,6 @@ public class Main {
 	private final Renderer renderer;
 	private boolean isRunning = true;
 	
-	private static final int SIMULATION_COUNT = 100;
-	
 	public Main() {
 		this.simulator = new Simulator();
 		this.world = new World();
@@ -21,7 +19,7 @@ public class Main {
 	}
 	
 	private void run() {
-		for(int i = 0; i < SIMULATION_COUNT; i++) {
+		while(true) {
 			runSimulation();
 			if(!isRunning) {
 				break;
@@ -33,7 +31,7 @@ public class Main {
 	private void runSimulation() {
 		world.reset();
 		simulator.nextSimulation();
-		while(!simulator.isFinished() && isRunning) {
+		while(isRunning) {
 			simulator.updateSimulation();
 			renderer.renderFrame();
 			if(renderer.isWindowCloseRequested()) {
