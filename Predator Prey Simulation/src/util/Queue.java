@@ -12,10 +12,7 @@ public class Queue<DataType> {
 	
 	public DataType dequeue()
 	{
-		if(this.queue.isEmpty())
-		{
-			return null;
-		}
+		assert(!this.queue.isEmpty());
 		return this.queue.remove(0);
 	}
 	
@@ -23,14 +20,19 @@ public class Queue<DataType> {
 	{
 		return this.queue.isEmpty();
 	}
-
-	public void clear() {
-		this.queue.clear();
-	}
-
+	
 	public void enqueueAll(DataType[] items) {
 		for(DataType item : items) {
 			enqueue(item);
 		}
+	}
+	
+	public DataType peek() {
+		assert(!this.queue.isEmpty());
+		return this.queue.get(0);
+	}
+
+	public void clear() {
+		this.queue.clear();
 	}
 }

@@ -1,32 +1,42 @@
 package simulation;
 
+import java.util.Arrays;
+
 import core.SimulationSettings;
 import simulation.population.Population;
+import util.ArrayUtil;
 
 public class RoundGenerator {
 
 	private Population population;
-	private Individual[][] hallOfFame;
+	private Individual[] hallOfFame;
 	
-	private RoundState roundState = RoundState.FREE_FOR_ALL;
+	private RoundState roundState = RoundState.POPULATION_BATTLE;
 	private boolean isFirstCycle = true;
 	
-	private Individual[][] currentBatch;
+	private Individual[] currentBigPopulation;
+	private Individual[] currentBatch;
 
-	public RoundGenerator(Population startPopulation, int packSize) {
+	public RoundGenerator(Population startPopulation) {
 		this.population = startPopulation;
-		this.hallOfFame = new Individual[SimulationSettings.hallOfFameSize][packSize];
+		this.hallOfFame = new Individual[SimulationSettings.hallOfFameSize];
 	}
 
 	public void nextBatch() {
-		if(roundState == RoundState.CLASH_OF_THE_TITANS) {
+		if(roundState == RoundState.HALL_OF_FAME_BATTLE) {
+			Arrays.sort(currentBigPopulation);
+			if(isFirstCycle) {
+				hallOfFame = Arrays.copyOf(currentBigPopulation, SimulationSettings.hallOfFameSize);
+			}
+			Individual[] currentPopulationTop = Arrays.copyOf(currentBigPopulation, SimulationSettings.hallOfFameSize);
+			currentBatch = ArrayUtil.concat(hallOfFame, currentPopulationTop);
+			isFirstCycle = false;
 		}
-		if(roundState == RoundState.FREE_FOR_ALL) {			
+		if(roundState == RoundState.POPULATION_BATTLE) {			
 			if(!isFirstCycle) {
 				generateNextPopulationCycle();
 			}
-			isFirstCycle = false;
-			roundState = RoundState.CLASH_OF_THE_TITANS;
+			roundState = RoundState.HALL_OF_FAME_BATTLE;
 		}
 	}
 
@@ -34,7 +44,7 @@ public class RoundGenerator {
 		
 	}
 
-	public Individual[][] getIndividuals() {
+	public Individual[] getIndividuals() {
 		return currentBatch;
 	}
 

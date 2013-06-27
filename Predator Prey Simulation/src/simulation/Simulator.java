@@ -10,8 +10,8 @@ public class Simulator {
 	private int ticksElapsed = 0;
 	private boolean persuitTimedOut = false;
 	private SimulationQueue simulationQueue = new SimulationQueue();
-	private NeuralRobotDriver[] predatorDrivers;
-	private NeuralRobotDriver[] preyDrivers;
+	private NeuralRobotDriver predatorDriver;
+	private NeuralRobotDriver preyDriver;
 
 	public void setWorld(World world) {
 		this.world = world;
@@ -25,12 +25,9 @@ public class Simulator {
 		if(ticksElapsed >= SimulationSettings.numRoundTicks) {
 			persuitTimedOut = true;
 		}
-		for(NeuralRobotDriver predatorDriver : predatorDrivers) {
-			predatorDriver.simulate();
-		}
-		for(NeuralRobotDriver preyDriver : preyDrivers) {
-			preyDriver.simulate();
-		}
+		predatorDriver.simulate();
+		preyDriver.simulate();
+		
 		world.checkCollissions();
 		ticksElapsed++;
 	}
@@ -54,20 +51,14 @@ public class Simulator {
 		world.initRobotLocations();
 	}
 
-	private void spawnRobotDrivers() {
-		NeuralNetwork[] predatorNetworks = simulationQueue.getCurrentPredatorNetworks();
-		NeuralNetwork[] preyNetworks = simulationQueue.getCurrentPreyNetworks();
-		predatorDrivers = new NeuralRobotDriver[predatorNetworks.length];
-		preyDrivers = new NeuralRobotDriver[preyNetworks.length];
+	private void spawnRobotDrivers() {		
+		NeuralNetwork predatorNetwork = simulationQueue.getCurrentPredatorNetwork();
+		int robotID = world.spawnRobot(RobotType.PREDATOR_RED);
+		predatorDriver = new NeuralRobotDriver(predatorNetwork, robotID, world);
 		
-		for(int i = 0; i < predatorNetworks.length; i++) {
-			int robotID = world.spawnRobot(RobotType.PREDATOR_RED);
-			predatorDrivers[i] = new NeuralRobotDriver(predatorNetworks[i], robotID, world);
-		}
-		for(int i = 0; i < preyNetworks.length; i++) {
-			int robotID = world.spawnRobot(RobotType.PREY_BLUE);
-			preyDrivers[i] = new NeuralRobotDriver(preyNetworks[i], robotID, world);
-		}
+		NeuralNetwork preyNetwork = simulationQueue.getCurrentPreyNetwork();
+		robotID = world.spawnRobot(RobotType.PREY_BLUE);
+		preyDriver = new NeuralRobotDriver(preyNetwork, robotID, world);
 	}
 
 	private void reset() {

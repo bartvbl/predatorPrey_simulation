@@ -2,6 +2,7 @@ package simulation.population;
 
 import java.util.Iterator;
 
+import simulation.Individual;
 import simulation.neural.NeuralNetwork;
 
 public class Population implements Iterable<NeuralNetwork> {

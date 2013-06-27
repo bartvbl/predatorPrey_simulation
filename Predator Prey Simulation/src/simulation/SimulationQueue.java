@@ -1,16 +1,15 @@
 package simulation;
 
-import core.SimulationSettings;
 import simulation.neural.NeuralNetwork;
 import simulation.population.Population;
 import simulation.population.PopulationGenerator;
 import util.Queue;
 
 public class SimulationQueue {
-	private Queue<Individual[]> predatorRoundQueue = new Queue<Individual[]>();
-	private Queue<Individual[]> preyRoundQueue = new Queue<Individual[]>();
-	private Individual[] selectedPredators;
-	private Individual[] selectedPrey;
+	private Queue<Individual> predatorRoundQueue = new Queue<Individual>();
+	private Queue<Individual> preyRoundQueue = new Queue<Individual>();
+	private Individual selectedPredator;
+	private Individual selectedPrey;
 	private RoundGenerator predatorRoundHandler;
 	private RoundGenerator preyRoundHandler;
 	
@@ -19,15 +18,19 @@ public class SimulationQueue {
 		preyRoundQueue.clear();
 		Population startPredatorPopulation = PopulationGenerator.generatePredatorPopulation();
 		Population startPreyPopulation = PopulationGenerator.generatePreyPopulation();
-		predatorRoundHandler = new RoundGenerator(startPredatorPopulation, SimulationSettings.predatorPackSize);
-		preyRoundHandler = new RoundGenerator(startPreyPopulation, SimulationSettings.preyPackSize);
+		predatorRoundHandler = new RoundGenerator(startPredatorPopulation);
+		preyRoundHandler = new RoundGenerator(startPreyPopulation);
 		nextBatch();
 	}
 
 	public void next() {
-		selectedPredators = predatorRoundQueue.dequeue();
-		selectedPrey = preyRoundQueue.dequeue();
+		selectedPredator = predatorRoundQueue.dequeue();
+		selectedPrey = preyRoundQueue.peek();
 		if(predatorRoundQueue.isEmpty()) {
+			predatorRoundQueue.enqueueAll(predatorRoundHandler.getIndividuals());
+			selectedPrey = preyRoundQueue.dequeue();
+		}
+		if(preyRoundQueue.isEmpty()) {
 			nextBatch();
 		}
 	}
@@ -40,27 +43,15 @@ public class SimulationQueue {
 	}
 	
 	public void registerRoundOutcome(double predatorFitness, double preyFitness) {
-		for(Individual predator : selectedPredators) {
-			predator.registerFitnessValue(predatorFitness);
-		}
-		for(Individual prey : selectedPrey) {
-			prey.registerFitnessValue(predatorFitness);
-		}
+		selectedPredator.registerFitnessValue(predatorFitness);
+		selectedPrey.registerFitnessValue(predatorFitness);
 	}
 
-	public NeuralNetwork[] getCurrentPredatorNetworks() {
-		NeuralNetwork[] networks = new NeuralNetwork[selectedPredators.length];
-		for(int i = 0; i < networks.length; i++) {
-			networks[i] = selectedPredators[i].neuralNetwork;
-		}
-		return networks;
+	public NeuralNetwork getCurrentPredatorNetwork() {
+		return selectedPredator.neuralNetwork;
 	}
 
-	public NeuralNetwork[] getCurrentPreyNetworks() {
-		NeuralNetwork[] networks = new NeuralNetwork[selectedPrey.length];
-		for(int i = 0; i < networks.length; i++) {
-			networks[i] = selectedPrey[i].neuralNetwork;
-		}
-		return networks;
+	public NeuralNetwork getCurrentPreyNetwork() {
+		return selectedPrey.neuralNetwork;
 	}
 }
