@@ -23,7 +23,7 @@ public class DistanceSensorReader {
 		double[] distanceSensorReadings = new double[angles.length];
 		
 		for(int distanceSensor = 0; distanceSensor < distanceSensorReadings.length; distanceSensor++) {
-			if(distanceSensor == controlledRobotID) continue;
+			
 
 			double angle = angles[distanceSensor];
 			double rayEndX = Math.sin(Math.toRadians(angle - robotAngle)) * rayRange;
@@ -61,6 +61,8 @@ public class DistanceSensorReader {
 			
 			//robot collision detection
 			for(int robotID = 0; robotID < allRobotLocations.length; robotID++) {
+				if(robotID == controlledRobotID) continue;
+				
 				Point otherRobotLocation = allRobotLocations[robotID];
 				Point relativeOtherLocation = new Point(robotLocation.x - otherRobotLocation.x, robotLocation.y - otherRobotLocation.y);
 				
@@ -84,9 +86,9 @@ public class DistanceSensorReader {
 				}				
 			}
 			
-			//dx += 2 * (random.nextDouble() - 0.5) * noiseFactor;
-			//dy += 2 * (random.nextDouble() - 0.5) * noiseFactor;
-			
+			dx += 2 * (random.nextDouble() - 0.5) * noiseFactor;
+			dy += 2 * (random.nextDouble() - 0.5) * noiseFactor;
+
 			distanceSensorReadings[distanceSensor] = Math.sqrt((dx*dx) + (dy*dy)) / rayRange;
 		}
 		return distanceSensorReadings;
