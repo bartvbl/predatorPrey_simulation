@@ -32,7 +32,7 @@ public class Main {
 	private void runSimulation() {
 		world.reset();
 		simulator.nextSimulation();
-		System.out.println("Next simulation started. Round " + round);
+		System.out.println("Round " + round);
 		while(isRunning && !simulator.isFinished()) {
 			simulator.updateSimulation();
 			if((round % 100) == 0) {				

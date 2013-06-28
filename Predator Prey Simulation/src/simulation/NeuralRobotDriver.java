@@ -2,7 +2,10 @@ package simulation;
 
 import java.util.Arrays;
 
+import org.lwjgl.input.Keyboard;
+
 import core.SimulationSettings;
+import core.TempCheatyObject;
 
 import simulation.neural.NeuralNetwork;
 import simulation.world.World;
@@ -32,11 +35,16 @@ public class NeuralRobotDriver {
 		inputAxonValues = ArrayUtil.concat(inputAxonValues, distanceSensorReadings);
 		
 		if(controlledRobotType == RobotType.PREDATOR_RED) {
+			TempCheatyObject.distanceReadings = distanceSensorReadings;
 			double[] visionAxonValues = PredatorCamReader.calculatePredatorAxonValues(controlledRobotID, world);
 			inputAxonValues = ArrayUtil.concat(inputAxonValues, visionAxonValues);
 		}
 		
+//		System.out.println(controlledRobotType + ": " + Arrays.toString(inputAxonValues));
+		
 		double[] networkOutput = neuralNetwork.simulate(inputAxonValues);
+		
+//		System.out.println(controlledRobotType + ": " + Arrays.toString(networkOutput));
 		
 		if(networkOutput.length != SimulationSettings.neuralNetworkOutputCount) throw new RuntimeException("The neural network returned an invalid number of outputs. Supplied: "+networkOutput.length+" Expected: "+SimulationSettings.neuralNetworkOutputCount);
 		this.previousNetworkOutput = networkOutput;		
@@ -44,8 +52,24 @@ public class NeuralRobotDriver {
 		double deltaLeftWheel = networkOutput[0];
 		double deltaRightWheel = networkOutput[1];
 		
-		world.moveLeftWheel(controlledRobotID, deltaLeftWheel);
-		world.moveRightWheel(controlledRobotID, deltaRightWheel);
+		double left = 0;
+		double right = 0;
+		
+		if(Keyboard.isKeyDown(Keyboard.KEY_Q)) {
+			left = 1;
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
+			left = -1;
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
+			right = 1;
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
+			right = -1;
+		}
+		
+		world.moveLeftWheel(controlledRobotID, left);
+		world.moveRightWheel(controlledRobotID, right);
 	}
 
 }

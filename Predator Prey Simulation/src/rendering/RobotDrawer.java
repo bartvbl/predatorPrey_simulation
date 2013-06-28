@@ -1,9 +1,12 @@
 package rendering;
 
 
+import java.util.Arrays;
+
 import org.lwjgl.util.Color;
 
 import core.SimulationSettings;
+import core.TempCheatyObject;
 
 import rendering.geom.Point;
 import simulation.Robot;
@@ -44,6 +47,17 @@ public class RobotDrawer {
 		glTranslated(location.x, location.y, 0);
 		glRotated(rotation, 0, 0, 1);
 		glCallList(displayList);
+		glColor4d(0, 1, 0, 1);
+		glBegin(GL_LINES);
+		for(int i = 0; i < SimulationSettings.distanceSensorDirections.length; i++) {
+			double angle = SimulationSettings.distanceSensorDirections[i];
+			double length = TempCheatyObject.distanceReadings[i] * SimulationSettings.distanceSensorRange;
+			double dx = Math.sin(Math.toRadians(angle)) * length;
+			double dy = Math.cos(Math.toRadians(angle)) * length;
+			glVertex2d(0, 0);
+			glVertex2d(dx, dy);
+		}
+		glEnd();
 		glPopMatrix();
 	}
 

@@ -13,6 +13,8 @@ public class World {
 	private final Random random = new Random(System.nanoTime());
 	
 	public void moveLeftWheel(int robotID, double distance) {
+		if(distance == 0) return;
+		
 		distance = Math.min(1, Math.max(distance, -1));
 		
 		Robot robot = getRobotByID(robotID);
@@ -36,6 +38,8 @@ public class World {
 
 	
 	public void moveRightWheel(int robotID, double distance) {
+		if(distance == 0) return;
+		
 		distance = Math.min(1, Math.max(distance, -1));
 		
 		Robot robot = getRobotByID(robotID);
@@ -74,6 +78,7 @@ public class World {
 		if(newY + robotRadius >= SimulationSettings.BOARD_HEIGHT) {
 			dy = 0;
 		}
+		
 		robot.move(dx, dy);
 	}
 	
