@@ -41,8 +41,9 @@ public class NeuralRobotDriver {
 		if(networkOutput.length != SimulationSettings.neuralNetworkOutputCount) throw new RuntimeException("The neural network returned an invalid number of outputs. Supplied: "+networkOutput.length+" Expected: "+SimulationSettings.neuralNetworkOutputCount);
 		this.previousNetworkOutput = networkOutput;		
 		
-		double deltaLeftWheel = networkOutput[0] - networkOutput[1];
-		double deltaRightWheel = networkOutput[2] - networkOutput[3];
+		double deltaLeftWheel = networkOutput[0];
+		double deltaRightWheel = networkOutput[1];
+		
 		world.moveLeftWheel(controlledRobotID, deltaLeftWheel);
 		world.moveRightWheel(controlledRobotID, deltaRightWheel);
 	}

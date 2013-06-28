@@ -11,6 +11,7 @@ public class Main {
 	private final World world;
 	private final Renderer renderer;
 	private boolean isRunning = true;
+	private int round = 0;
 	
 	public Main() {
 		this.simulator = new Simulator();
@@ -31,13 +32,17 @@ public class Main {
 	private void runSimulation() {
 		world.reset();
 		simulator.nextSimulation();
-		while(isRunning) {
+		System.out.println("Next simulation started. Round " + round);
+		while(isRunning && !simulator.isFinished()) {
 			simulator.updateSimulation();
-			renderer.renderFrame();
+			if((round % 100) == 0) {				
+				renderer.renderFrame();
+			}
 			if(renderer.isWindowCloseRequested()) {
 				isRunning = false;
 			}
 		}
+		round++;
 	}
 
 	private void init() {

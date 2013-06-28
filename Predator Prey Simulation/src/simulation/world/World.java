@@ -1,6 +1,7 @@
 package simulation.world;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import core.SimulationSettings;
 import rendering.geom.Point;
@@ -9,9 +10,14 @@ import simulation.RobotType;
 
 public class World {
 	private final ArrayList<Robot> robots = new ArrayList<Robot>();
+	private final Random random = new Random(System.nanoTime());
 	
 	public void moveLeftWheel(int robotID, double distance) {
+		distance = Math.min(1, Math.max(distance, -1));
+		
 		Robot robot = getRobotByID(robotID);
+		
+		distance = robot.getWheelSpeed();
 		
 		double angle = -distance;
 		double currentAngleRadians = Math.toRadians(robot.getRotation()) + Math.PI;
@@ -30,7 +36,11 @@ public class World {
 
 	
 	public void moveRightWheel(int robotID, double distance) {
+		distance = Math.min(1, Math.max(distance, -1));
+		
 		Robot robot = getRobotByID(robotID);
+		
+		distance = robot.getWheelSpeed();
 		
 		double angle = distance;
 		double currentAngleRadians = Math.toRadians(robot.getRotation());
@@ -103,9 +113,11 @@ public class World {
 		for(int i = 0; i < predators.length; i++) {
 			Robot predatorRobot = getRobotByID(predators[i]);
 			predatorRobot.setLocation(SimulationSettings.predatorStartLocations[i]);
+			predatorRobot.setRotation(random.nextDouble() * 360d);
 		}
 		for(int i = 0; i < prey.length; i++) {
 			Robot preyRobot = getRobotByID(prey[i]);
+			preyRobot.setRotation(random.nextDouble() * 360d);
 			preyRobot.setLocation(SimulationSettings.preyStartLocations[i]);
 		}
 	}

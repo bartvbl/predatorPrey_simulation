@@ -2,6 +2,7 @@ package rendering;
 
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import rendering.gl.FrameUtils;
@@ -16,6 +17,7 @@ public class Renderer {
 
 	public void init() throws LWJGLException {
 		FrameUtils.initWindow();
+		Keyboard.create();
 	}
 	
 	public void renderFrame() {

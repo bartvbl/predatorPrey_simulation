@@ -17,7 +17,6 @@ public class NeuralNetwork {
 		
 		double[] previousLayerAxonValues = inputNeuronDentriteValues;
 		for(NeuralNetworkLayer layer : layers) {
-			System.out.println("previous layer axon values: " + Arrays.toString(previousLayerAxonValues));
 			layer.simulate(previousLayerAxonValues);
 			previousLayerAxonValues = layer.getAxonValues();
 		}

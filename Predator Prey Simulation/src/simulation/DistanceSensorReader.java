@@ -47,7 +47,6 @@ public class DistanceSensorReader {
 					
 					if( t1 >= 0 && t1 <= 1 )
 					{
-						System.out.println("("+dx+", "+dy+", "+t1+")");
 					}
 				}				
 			}

@@ -17,7 +17,7 @@ public class SimulationSettings {
 	
 	public static final double robotRadius = 0.45;
 	
-	public static final int numRoundTicks = 3000;
+	public static final int numRoundTicks = 60;
 	
 	public static final double[] distanceSensorDirections = new double[]{70, 290, 47, 313, 24, 337, 160, 200};
 	public static final double distanceSensorRange = 4;
@@ -26,10 +26,10 @@ public class SimulationSettings {
 	public static final double visionSensorRange = 7;
 	
 	public static final int neuralNetworkPredatorVisionNeurons = 5;
-	public static final int neuralNetworkOutputCount = 4;
+	public static final int neuralNetworkOutputCount = 2;
 	public static final int neuralNetworkPredatorInputCount = neuralNetworkOutputCount + distanceSensorDirections.length + neuralNetworkPredatorVisionNeurons;
 	public static final int neuralNetworkPreyInputCount = neuralNetworkOutputCount + distanceSensorDirections.length;
-	public static final int[] neuralNetworkHiddenLayerSizes = new int[]{30, 30, 30};
+	public static final int[] neuralNetworkHiddenLayerSizes = new int[]{30, 30, 30, neuralNetworkOutputCount};
 	
 	public static final int hallOfFameSize = 10;
 	

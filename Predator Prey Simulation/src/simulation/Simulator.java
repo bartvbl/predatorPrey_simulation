@@ -45,6 +45,7 @@ public class Simulator {
 			simulationQueue.registerRoundOutcome(predatorFitness, preyFitness);
 		}
 		
+		persuitTimedOut = false;
 		isFirstSimulation = false;
 		
 		reset();
