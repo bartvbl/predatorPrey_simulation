@@ -19,13 +19,16 @@ public class SimulationSettings {
 	
 	public static final int numRoundTicks = 3000;
 	
-	public static final int[] distanceSensorDirections = new int[]{};
-	public static final double distanceSensorRange = 1;
+	public static final double[] distanceSensorDirections = new double[]{70, 290, 47, 313, 24, 337, 160, 200};
+	public static final double distanceSensorRange = 4;
 	public static final double distanceSensorNoiseFactor = 0.03;
 	
-	public static final int neuralNetworkPredatorInputCount = 4 + 8 + 5;
-	public static final int neuralNetworkPreyInputCount = 4 + 8;
+	public static final double visionSensorRange = 7;
+	
+	public static final int neuralNetworkPredatorVisionNeurons = 5;
 	public static final int neuralNetworkOutputCount = 4;
+	public static final int neuralNetworkPredatorInputCount = neuralNetworkOutputCount + distanceSensorDirections.length + neuralNetworkPredatorVisionNeurons;
+	public static final int neuralNetworkPreyInputCount = neuralNetworkOutputCount + distanceSensorDirections.length;
 	public static final int[] neuralNetworkHiddenLayerSizes = new int[]{30, 30, 30};
 	
 	public static final int hallOfFameSize = 10;

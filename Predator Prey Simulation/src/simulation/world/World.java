@@ -126,4 +126,13 @@ public class World {
 		RobotCollissionDetector.removeCollidedPrey(robots);
 	}
 
+
+	public Point[] getAllRobotLocations() {
+		Point[] locations = new Point[robots.size()];
+		for(int i = 0; i < robots.size(); i++) {
+			locations[i] = robots.get(i).getLocation();
+		}
+		return locations;
+	}
+
 }

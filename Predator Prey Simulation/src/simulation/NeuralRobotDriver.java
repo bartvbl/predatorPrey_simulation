@@ -21,7 +21,8 @@ public class NeuralRobotDriver {
 		this.controlledRobotID = robotID;
 		this.world = world;
 		this.controlledRobotType = world.getRobotType(robotID);
-		Arrays.fill(new double[SimulationSettings.neuralNetworkOutputCount], 0.5);
+		previousNetworkOutput = new double[SimulationSettings.neuralNetworkOutputCount];
+		Arrays.fill(previousNetworkOutput, 0.5);
 	}
 
 	public void simulate() {
@@ -32,12 +33,12 @@ public class NeuralRobotDriver {
 		
 		if(controlledRobotType == RobotType.PREDATOR_RED) {
 			double[] visionAxonValues = PredatorCamReader.calculatePredatorAxonValues(controlledRobotID, world);
-			inputAxonValues = ArrayUtil.concat(distanceSensorReadings, visionAxonValues);
+			inputAxonValues = ArrayUtil.concat(inputAxonValues, visionAxonValues);
 		}
 		
 		double[] networkOutput = neuralNetwork.simulate(inputAxonValues);
 		
-		assert(networkOutput.length == SimulationSettings.neuralNetworkOutputCount);
+		if(networkOutput.length != SimulationSettings.neuralNetworkOutputCount) throw new RuntimeException("The neural network returned an invalid number of outputs. Supplied: "+networkOutput.length+" Expected: "+SimulationSettings.neuralNetworkOutputCount);
 		this.previousNetworkOutput = networkOutput;		
 		
 		double deltaLeftWheel = networkOutput[0] - networkOutput[1];

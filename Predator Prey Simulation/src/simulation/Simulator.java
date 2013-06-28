@@ -12,6 +12,7 @@ public class Simulator {
 	private SimulationQueue simulationQueue = new SimulationQueue();
 	private NeuralRobotDriver predatorDriver;
 	private NeuralRobotDriver preyDriver;
+	private boolean isFirstSimulation = true;
 
 	public void setWorld(World world) {
 		this.world = world;
@@ -37,10 +38,14 @@ public class Simulator {
 	}
 
 	public void nextSimulation() {
-		double roundFitness = (double) ticksElapsed / (double) SimulationSettings.numRoundTicks;
-		double predatorFitness = 1 - roundFitness;
-		double preyFitness = roundFitness;
-		simulationQueue.registerRoundOutcome(predatorFitness, preyFitness);
+		if(!isFirstSimulation) {			
+			double roundFitness = (double) ticksElapsed / (double) SimulationSettings.numRoundTicks;
+			double predatorFitness = 1 - roundFitness;
+			double preyFitness = roundFitness;
+			simulationQueue.registerRoundOutcome(predatorFitness, preyFitness);
+		}
+		
+		isFirstSimulation = false;
 		
 		reset();
 				

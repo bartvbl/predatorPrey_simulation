@@ -24,7 +24,7 @@ public class DNAGenerator {
 		NeuralNetworkLayer[] layers = new NeuralNetworkLayer[layerNeuronCounts.length];
 		
 		int previousLayerSize = numInputNeurons;
-		for(int i = 0; i < layerNeuronCounts.length - 1; i++) {
+		for(int i = 0; i < layerNeuronCounts.length; i++) {
 			Neuron[] layerNeurons = generateLayer(previousLayerSize, layerNeuronCounts[i]);
 			layers[i] = new NeuralNetworkLayer(layerNeurons);
 			previousLayerSize = layerNeuronCounts[i];
