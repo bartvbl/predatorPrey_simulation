@@ -15,4 +15,12 @@ public class Population implements Iterable<NeuralNetwork> {
 	public Iterator<NeuralNetwork> iterator() {
 		return null;
 	}
+
+	public Individual[] generateIndividuals() {
+		Individual[] individuals = new Individual[neuralNetworks.length];
+		for(int i = 0; i < neuralNetworks.length; i++) {
+			individuals[i] = new Individual(neuralNetworks[i]);
+		}
+		return individuals;
+	}
 }

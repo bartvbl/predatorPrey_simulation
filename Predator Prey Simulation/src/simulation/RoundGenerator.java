@@ -36,6 +36,7 @@ public class RoundGenerator {
 			if(!isFirstCycle) {
 				generateNextPopulationCycle();
 			}
+			currentBatch = population.generateIndividuals();
 			roundState = RoundState.HALL_OF_FAME_BATTLE;
 		}
 	}

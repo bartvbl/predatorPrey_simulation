@@ -100,7 +100,14 @@ public class World {
 	public void initRobotLocations() {
 		Integer[] predators = getRobotsByType(RobotType.PREDATOR_RED);
 		Integer[] prey = getRobotsByType(RobotType.PREY_BLUE);
-		
+		for(int i = 0; i < predators.length; i++) {
+			Robot predatorRobot = getRobotByID(predators[i]);
+			predatorRobot.setLocation(SimulationSettings.predatorStartLocations[i]);
+		}
+		for(int i = 0; i < prey.length; i++) {
+			Robot preyRobot = getRobotByID(prey[i]);
+			preyRobot.setLocation(SimulationSettings.preyStartLocations[i]);
+		}
 	}
 	
 	public Integer[] getRobotsByType(RobotType type) {
