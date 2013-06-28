@@ -9,15 +9,15 @@ public class SimulationSettings {
 	
 	public static final int predatorPopulationSize = 100;
 	public static final double predatorStartRotation = 270;
-	public static final double predatorSpeed = 0.01;
+	public static final double predatorSpeed = 0.05;
 	
 	public static final int preyPopulationSize = 100;
 	public static final double preyStartRotation = 90;
-	public static final double preySpeed = 0.0002;
+	public static final double preySpeed = 0.1;
 	
 	public static final double robotRadius = 0.45;
 	
-	public static final int numRoundTicks = 5000000;
+	public static final int numRoundTicks = 500;
 	
 	public static final double[] distanceSensorDirections = new double[]{70, 290, 47, 313, 24, 337, 160, 200};
 	public static final double distanceSensorRange = 4;

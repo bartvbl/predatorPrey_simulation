@@ -19,7 +19,7 @@ public class World {
 		
 		Robot robot = getRobotByID(robotID);
 		
-		distance = robot.getWheelSpeed();
+		distance *= robot.getWheelSpeed();
 		
 		double angle = -distance;
 		double currentAngleRadians = Math.toRadians(robot.getRotation()) + Math.PI;
@@ -44,7 +44,7 @@ public class World {
 		
 		Robot robot = getRobotByID(robotID);
 		
-		distance = robot.getWheelSpeed();
+		distance *= robot.getWheelSpeed();
 		
 		double angle = distance;
 		double currentAngleRadians = Math.toRadians(robot.getRotation());

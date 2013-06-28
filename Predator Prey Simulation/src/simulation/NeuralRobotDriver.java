@@ -52,24 +52,8 @@ public class NeuralRobotDriver {
 		double deltaLeftWheel = networkOutput[0];
 		double deltaRightWheel = networkOutput[1];
 		
-		double left = 0;
-		double right = 0;
-		
-		if(Keyboard.isKeyDown(Keyboard.KEY_Q)) {
-			left = 1;
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			left = -1;
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			right = 1;
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			right = -1;
-		}
-		
-		world.moveLeftWheel(controlledRobotID, left);
-		world.moveRightWheel(controlledRobotID, right);
+		world.moveLeftWheel(controlledRobotID, deltaLeftWheel);
+		world.moveRightWheel(controlledRobotID, deltaRightWheel);
 	}
 
 }
