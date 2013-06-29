@@ -2,6 +2,8 @@ package simulation;
 
 import java.util.Arrays;
 
+import org.lwjgl.input.Keyboard;
+
 import core.SimulationSettings;
 
 import simulation.neural.NeuralNetwork;
@@ -31,6 +33,7 @@ public class NeuralRobotDriver {
 		double[] distanceSensorReadings = DistanceSensorReader.calculateDistanceSensorReadings(controlledRobotID, world);
 		inputAxonValues = ArrayUtil.concat(inputAxonValues, distanceSensorReadings);
 		
+		
 		if(controlledRobotType == RobotType.PREDATOR_RED) {
 			double[] visionAxonValues = PredatorCamReader.calculatePredatorAxonValues(controlledRobotID, world);
 			inputAxonValues = ArrayUtil.concat(inputAxonValues, visionAxonValues);
@@ -44,8 +47,24 @@ public class NeuralRobotDriver {
 		double deltaLeftWheel = networkOutput[0];
 		double deltaRightWheel = networkOutput[1];
 		
-		world.moveLeftWheel(controlledRobotID, deltaLeftWheel);
-		world.moveRightWheel(controlledRobotID, deltaRightWheel);
+		double left = 0;
+		double right = 0;
+		if(controlledRobotType == RobotType.PREDATOR_RED) {
+			if(Keyboard.isKeyDown(Keyboard.KEY_Q)) {
+				left = 1;
+			}
+			if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
+				left = -1;
+			}
+			if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
+				right = 1;
+			}
+			if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
+				right = -1;
+			}
+		}
+		world.moveLeftWheel(controlledRobotID, left);
+		world.moveRightWheel(controlledRobotID, right);
 	}
 
 }

@@ -8,20 +8,24 @@ public class PredatorCamReader {
 
 	public static double[] calculatePredatorAxonValues(int controlledRobotID, World world) {
 		int visionNeuronCount = SimulationSettings.neuralNetworkPredatorVisionNeurons;
+		double visionRange = SimulationSettings.neuralNetworkPredatorVisionAngle;
+		double camRange = SimulationSettings.neuralNetworkPredatorVisionRange;
 		double[] visionValues = new double[visionNeuronCount];
 		Integer[] preyRobotIDs = world.getRobotsByType(RobotType.PREY_BLUE);
 		Point robotLocation = world.getRobotLocation(controlledRobotID);
-		double visionRange = SimulationSettings.neuralNetworkPredatorVisionAngle;
+		double robotRotation = world.getRobotRotation(controlledRobotID);
 		
 		for(int preyRobotID : preyRobotIDs) {
 			Point preyLocation = world.getRobotLocation(preyRobotID);
-			double preyAngle = calculateNormalizedAngle(robotLocation, preyLocation);
 			
-			//calculating the angle relative to the heading of the predator
-			preyAngle -= world.getRobotRotation(controlledRobotID);
+			if(preyLocation.distanceTo(robotLocation) > camRange) {
+				continue;
+			}
+			
+			double preyAngle = calculateNormalizedAngle(robotLocation, robotRotation, preyLocation);
 			
 			//abort if the prey is not in view
-			if((preyAngle > visionRange / 2) && (preyAngle < (360 - visionRange/2))) {
+			if((preyAngle > visionRange / 2) && (preyAngle < -(visionRange/2))) {
 				continue;
 			}
 			
@@ -45,7 +49,6 @@ public class PredatorCamReader {
 			
 			visionValues[angleIndex] = 1;
 		}
-		
 		return visionValues;
 	}
 
@@ -53,14 +56,22 @@ public class PredatorCamReader {
 		return (int) Math.floor(preyAngle + 0.5d);
 	}
 
-	private static double calculateNormalizedAngle(Point robotLocation, Point preyLocation) {
-		double angle = Math.toDegrees(Math.atan2(preyLocation.x - robotLocation.x, preyLocation.y - robotLocation.y));
+	private static double calculateNormalizedAngle(Point robotLocation, double robotRotation, Point preyLocation) {
+		double dx = preyLocation.x - robotLocation.x;
+		double dy = preyLocation.y - robotLocation.y;
 		
-		if(angle < 0) {
-	        angle += 360;
-	    }
+		CheatyTransferObject.robotVector = new Point(dx, dy);
 		
-		return angle;
+		double robotHeadingX = Math.sin(Math.toRadians(-robotRotation));
+		double robotHeadingY = Math.cos(Math.toRadians(-robotRotation));
+		
+		double dotProduct = (dx * robotHeadingX) + (dy * robotHeadingY);
+		double vectorLength = Math.sqrt((dx*dx) + (dy*dy));
+		double angle = Math.atan2(dy, dx) - Math.atan2(robotHeadingY, robotHeadingX);
+		CheatyTransferObject.robotHeading = new Point(3d*robotHeadingX, 3d*robotHeadingY);
+		double angleDegrees = Math.toDegrees(angle);
+		CheatyTransferObject.calculatedAngle = new Point(Math.sin(-angle) * 3, Math.cos(-angle) * 3);
+		return angleDegrees;
 	}
 
 }
