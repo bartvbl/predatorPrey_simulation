@@ -63,6 +63,9 @@ public class DistanceSensorReader {
 			for(int robotID = 0; robotID < allRobotLocations.length; robotID++) {
 				if(robotID == controlledRobotID) continue;
 				
+				//the section below is adapted from the algorithm listed on:
+				//http://stackoverflow.com/questions/1073336/circle-line-collision-detection
+				
 				Point otherRobotLocation = allRobotLocations[robotID];
 				Point relativeOtherLocation = new Point(robotLocation.x - otherRobotLocation.x, robotLocation.y - otherRobotLocation.y);
 				
