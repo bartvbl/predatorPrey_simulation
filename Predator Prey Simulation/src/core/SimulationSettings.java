@@ -28,7 +28,7 @@ public class SimulationSettings {
 	public static final int neuralNetworkPredatorVisionNeurons = 5;
 	public static final double neuralNetworkPredatorVisionAngle = 36;
 	public static final double neuralNetworkPredatorVisionRange = 4;
-	public static final int neuralNetworkOutputCount = 2;
+	public static final int neuralNetworkOutputCount = 4;
 	public static final int neuralNetworkPredatorInputCount = neuralNetworkOutputCount + distanceSensorDirections.length + neuralNetworkPredatorVisionNeurons;
 	public static final int neuralNetworkPreyInputCount = neuralNetworkOutputCount + distanceSensorDirections.length;
 	public static final int[] neuralNetworkHiddenLayerSizes = new int[]{30, 30, 30, neuralNetworkOutputCount};
