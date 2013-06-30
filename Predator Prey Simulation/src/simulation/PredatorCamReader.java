@@ -23,14 +23,14 @@ public class PredatorCamReader {
 			}
 			
 			double preyAngle = calculateNormalizedAngle(robotLocation, robotRotation, preyLocation);
-			
 			//abort if the prey is not in view
 			if((preyAngle > visionRange / 2) && (preyAngle < -(visionRange/2))) {
 				continue;
 			}
 			
 			//get the angle in a range from 0 to visionAngle
-			preyAngle += visionRange / 2;
+			preyAngle -= visionRange / 2;
+			preyAngle *= -1;
 			
 			//normalize the value 0 -> 1
 			preyAngle /= visionRange;
@@ -45,9 +45,10 @@ public class PredatorCamReader {
 			int angleIndex = round(preyAngle);
 			
 			//eliminating possible out of bounds results due to rounding
-			angleIndex = Math.max(0, Math.min(angleIndex, visionNeuronCount - 1));
+			if((angleIndex >= 0) && (angleIndex < visionNeuronCount)) {
+				visionValues[angleIndex] = 1;
+			}
 			
-			visionValues[angleIndex] = 1;
 		}
 		return visionValues;
 	}
@@ -60,17 +61,11 @@ public class PredatorCamReader {
 		double dx = preyLocation.x - robotLocation.x;
 		double dy = preyLocation.y - robotLocation.y;
 		
-		CheatyTransferObject.robotVector = new Point(dx, dy);
-		
 		double robotHeadingX = Math.sin(Math.toRadians(-robotRotation));
 		double robotHeadingY = Math.cos(Math.toRadians(-robotRotation));
 		
-		double dotProduct = (dx * robotHeadingX) + (dy * robotHeadingY);
-		double vectorLength = Math.sqrt((dx*dx) + (dy*dy));
 		double angle = Math.atan2(dy, dx) - Math.atan2(robotHeadingY, robotHeadingX);
-		CheatyTransferObject.robotHeading = new Point(3d*robotHeadingX, 3d*robotHeadingY);
 		double angleDegrees = Math.toDegrees(angle);
-		CheatyTransferObject.calculatedAngle = new Point(Math.sin(-angle) * 3, Math.cos(-angle) * 3);
 		return angleDegrees;
 	}
 

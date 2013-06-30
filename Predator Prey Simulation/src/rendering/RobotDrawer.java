@@ -1,14 +1,10 @@
 package rendering;
 
-import java.util.Arrays;
-
 import org.lwjgl.util.Color;
 
 import core.SimulationSettings;
 
 import rendering.geom.Point;
-import simulation.CheatyTransferObject;
-import simulation.Robot;
 import simulation.RobotType;
 import simulation.world.World;
 import static org.lwjgl.opengl.GL11.*;
@@ -45,17 +41,7 @@ public class RobotDrawer {
 		glPushMatrix();
 		glTranslated(location.x, location.y, 0);
 		glColor4d(0, 1, 0, 1);
-		glBegin(GL_LINES);
-		glVertex2d(0, 0);
-		glVertex2d(CheatyTransferObject.robotHeading.x, CheatyTransferObject.robotHeading.y);
-		glVertex2d(0, 0);
-		glVertex2d(CheatyTransferObject.robotVector.x, CheatyTransferObject.robotVector.y);
-		glEnd();
 		glRotated(rotation, 0, 0, 1);
-		glBegin(GL_LINES);
-		glVertex2d(0, 0);
-		glVertex2d(CheatyTransferObject.calculatedAngle.x, CheatyTransferObject.calculatedAngle.y);
-		glEnd();
 		glCallList(displayList);
 		glPopMatrix();
 	}
