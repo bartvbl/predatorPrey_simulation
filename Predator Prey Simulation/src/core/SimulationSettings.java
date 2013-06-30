@@ -9,7 +9,7 @@ public class SimulationSettings {
 	
 	public static final int predatorPopulationSize = 100;
 	public static final double predatorStartRotation = 270;
-	public static final double predatorSpeed = 0.005;
+	public static final double predatorSpeed = 0.05;
 	
 	public static final int preyPopulationSize = 100;
 	public static final double preyStartRotation = 90;
@@ -35,7 +35,7 @@ public class SimulationSettings {
 	
 	public static final int hallOfFameSize = 10;
 	
-	public static final Point[] predatorStartLocations = new Point[]{new Point(10, 7.5), 
+	public static final Point[] predatorStartLocations = new Point[]{new Point(1, 7.5), 
 																	 new Point(1, 6.5),
 																	 new Point(1, 8.5),
 																	 new Point(1, 5.5),
