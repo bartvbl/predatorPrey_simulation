@@ -40,7 +40,7 @@ public class NeuralRobotDriver {
 		}
 		
 		double[] networkOutput = neuralNetwork.simulate(inputAxonValues);
-		
+
 		if(networkOutput.length != SimulationSettings.neuralNetworkOutputCount) throw new RuntimeException("The neural network returned an invalid number of outputs. Supplied: "+networkOutput.length+" Expected: "+SimulationSettings.neuralNetworkOutputCount);
 		this.previousNetworkOutput = networkOutput;		
 		

@@ -17,7 +17,7 @@ public class SimulationSettings {
 	
 	public static final double robotRadius = 0.45;
 	
-	public static final int numRoundTicks = 50000;
+	public static final int numRoundTicks = 500;
 	
 	public static final double[] distanceSensorDirections = new double[]{70, 290, 47, 313, 24, 337, 160, 200};
 	public static final double distanceSensorRange = 0.45;

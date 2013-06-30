@@ -46,7 +46,7 @@ public class DNAGenerator {
 		double[] layerWeights = new double[previousLayerSize];
 		double maxWeight = 1d / (double) previousLayerSize;
 		for(int i = 0; i < layerWeights.length; i++) {
-			layerWeights[i] = random.nextDouble() * maxWeight;
+			layerWeights[i] = (2*random.nextDouble()) - 1;
 		}
 		return layerWeights;
 	}

@@ -1,5 +1,7 @@
 package simulation.neural;
 
+import java.util.Arrays;
+
 public class NeuralNetworkLayer {
 	private final double[] axonValues;
 	private final Neuron[] neurons;

@@ -1,5 +1,7 @@
 package simulation.neural;
 
+import java.util.Arrays;
+
 import util.MathUtil;
 
 public class SigmoidNeuron extends Neuron {
