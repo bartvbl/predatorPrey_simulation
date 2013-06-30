@@ -30,6 +30,7 @@ public class PredatorCamReader {
 			
 			//get the angle in a range from 0 to visionAngle
 			preyAngle -= visionRange / 2;
+			
 			preyAngle *= -1;
 			
 			//normalize the value 0 -> 1
@@ -61,11 +62,15 @@ public class PredatorCamReader {
 		double dx = preyLocation.x - robotLocation.x;
 		double dy = preyLocation.y - robotLocation.y;
 		
+		CheatyTransferObject.robotVector = new Point(dx, dy);
+		
 		double robotHeadingX = Math.sin(Math.toRadians(-robotRotation));
 		double robotHeadingY = Math.cos(Math.toRadians(-robotRotation));
 		
 		double angle = Math.atan2(dy, dx) - Math.atan2(robotHeadingY, robotHeadingX);
+		CheatyTransferObject.robotHeading = new Point(3d*robotHeadingX, 3d*robotHeadingY);
 		double angleDegrees = Math.toDegrees(angle);
+		CheatyTransferObject.calculatedAngle = new Point(Math.sin(-angle) * 3, Math.cos(-angle) * 3);
 		return angleDegrees;
 	}
 
