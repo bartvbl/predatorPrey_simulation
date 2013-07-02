@@ -31,7 +31,7 @@ public class Renderer {
 		RobotDrawer.drawRobots(world);
 		
 		Display.update();
-		Display.sync(65);
+		Display.sync(100);
 	}
 
 

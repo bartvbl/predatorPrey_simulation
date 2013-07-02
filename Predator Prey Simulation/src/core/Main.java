@@ -3,6 +3,8 @@ package core;
 import javax.swing.JOptionPane;
 
 import rendering.Renderer;
+import simulation.RoundGenerator;
+import simulation.RoundState;
 import simulation.Simulator;
 import simulation.world.World;
 
@@ -12,6 +14,7 @@ public class Main {
 	private final Renderer renderer;
 	private boolean isRunning = true;
 	private int round = 0;
+	public static boolean shouldRender = false;
 	
 	public Main() {
 		this.simulator = new Simulator();
@@ -35,7 +38,7 @@ public class Main {
 		System.out.println("Round " + round);
 		while(isRunning && !simulator.isFinished()) {
 			simulator.updateSimulation();
-			if((round % 100) == 0) {				
+			if(((round % 100) == 0) && (shouldRender)) {				
 				renderer.renderFrame();
 			}
 			if(renderer.isWindowCloseRequested()) {

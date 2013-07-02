@@ -7,8 +7,10 @@ import simulation.neural.NeuralNetwork;
 
 public class Population implements Iterable<NeuralNetwork> {
 	private final NeuralNetwork[] neuralNetworks;
+	public final int length;
 	
 	public Population(NeuralNetwork[] neuralNetworks) {
+		length = neuralNetworks.length;
 		this.neuralNetworks = neuralNetworks;
 	}
 	

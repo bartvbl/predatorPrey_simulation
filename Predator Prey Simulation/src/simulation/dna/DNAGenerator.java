@@ -50,4 +50,8 @@ public class DNAGenerator {
 		}
 		return layerWeights;
 	}
+
+	public static NeuralNetwork[] generatePredatorNetworks(int count) {
+		return null;
+	}
 }

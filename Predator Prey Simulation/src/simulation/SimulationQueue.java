@@ -44,7 +44,7 @@ public class SimulationQueue {
 	
 	public void registerRoundOutcome(double predatorFitness, double preyFitness) {
 		selectedPredator.registerFitnessValue(predatorFitness);
-		selectedPrey.registerFitnessValue(predatorFitness);
+		selectedPrey.registerFitnessValue(preyFitness);
 	}
 
 	public NeuralNetwork getCurrentPredatorNetwork() {

@@ -37,4 +37,12 @@ public class Individual implements Comparable<Individual> {
 		}
 		return -1;
 	}
+
+	public void resetFitness() {
+		roundFitnessOutcomes.clear();
+	}
+	
+	public String toString() {
+		return "Individual of fitness " + getAverageFitness();
+	}
 }
