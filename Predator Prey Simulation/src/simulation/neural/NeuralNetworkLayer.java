@@ -23,4 +23,8 @@ public class NeuralNetworkLayer {
 	public double[] getAxonValues() {
 		return axonValues;
 	}
+
+	public double[] getNeuronWeights(int neuron) {
+		return neurons[neuron].dentriteWeights;
+	}
 }

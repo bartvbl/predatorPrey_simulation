@@ -18,8 +18,8 @@ public class SimulationQueue {
 		preyRoundQueue.clear();
 		Population startPredatorPopulation = PopulationGenerator.generatePredatorPopulation();
 		Population startPreyPopulation = PopulationGenerator.generatePreyPopulation();
-		predatorRoundHandler = new RoundGenerator(startPredatorPopulation);
-		preyRoundHandler = new RoundGenerator(startPreyPopulation);
+		predatorRoundHandler = new RoundGenerator(startPredatorPopulation, RobotType.PREDATOR_RED);
+		preyRoundHandler = new RoundGenerator(startPreyPopulation, RobotType.PREY_BLUE);
 		nextBatch();
 	}
 

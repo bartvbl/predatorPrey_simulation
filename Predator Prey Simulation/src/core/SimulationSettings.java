@@ -17,7 +17,7 @@ public class SimulationSettings {
 	
 	public static final double robotRadius = 0.45;
 	
-	public static final int numRoundTicks = 15000;
+	public static final int numRoundTicks = 5000;
 	
 	public static final double[] distanceSensorDirections = new double[]{70, 290, 47, 313, 24, 337, 160, 200};
 	public static final double distanceSensorRange = 0.45;
@@ -36,6 +36,8 @@ public class SimulationSettings {
 	public static final int hallOfFameSize = 10;
 	public static final int randomlyPickedBatchSize = 10;
 	public static final int reproductionCount = 3;
+	public static final double flipBitProbability = 0.05;
+	public static final double crossOverProbability = 0.05;
 	
 	public static final Point[] predatorStartLocations = new Point[]{new Point(1, 7.5), 
 																	 new Point(1, 6.5),

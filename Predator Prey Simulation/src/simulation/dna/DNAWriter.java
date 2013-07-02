@@ -1,48 +1,44 @@
 package simulation.dna;
 
-import java.nio.ByteBuffer;
-
-import org.lwjgl.BufferUtils;
-
 import simulation.neural.NeuralNetwork;
 import simulation.neural.NeuralNetworkLayer;
 
 public class DNAWriter {
-	private static final int numMetaBytes = 3 * 4; //two ints
-	private static final int header = 0x4E4E4554;
-	
-	public byte[] store(NeuralNetwork network) {
-		int byteCount = calculateDNAByteCount(network);
-		ByteBuffer buffer = BufferUtils.createByteBuffer(byteCount);
-		writeNetworkToBuffer(buffer, network);
-		buffer.rewind();
-		return buffer.array();
+	public static float[] store(NeuralNetwork network) {
+		int floatCount = calculateDNAFloatCount(network);
+		float[] dna = new float[floatCount];
+		writeNetworkToBuffer(dna, network);
+		return dna;
 	}
 	
-	private void writeNetworkToBuffer(ByteBuffer buffer, NeuralNetwork network) {
+	private static void writeNetworkToBuffer(float[] dna, NeuralNetwork network) {
 		NeuralNetworkLayer[] layers = network.getLayers();
-		buffer.putInt(header);
-		buffer.putInt(network.numInputNeurons);
-		buffer.putInt(layers.length);
-		
+		int dnaPointer = 0;
 		//store neurons per layer
-		for(int i = 0; i < layers.length; i++) {
-			buffer.putInt(layers[i].length);
+		for(int layerID = 0; layerID < layers.length; layerID++) {
+			NeuralNetworkLayer layer = layers[layerID];
+			for(int neuron = 0; neuron < layer.length; neuron++) {
+				double[] neuronWeights = layer.getNeuronWeights(neuron);
+				for(double weight : neuronWeights) {
+					dna[dnaPointer] = (float) weight;
+					dnaPointer++;
+				}
+			}
 		}
 	}
 
-	private int calculateDNAByteCount(NeuralNetwork network) {
-		int byteCount = numMetaBytes;
+	private static int calculateDNAFloatCount(NeuralNetwork network) {
+		int floatCount = 0;
 		NeuralNetworkLayer[] layers = network.getLayers();
-		//neuron count per layer
-		byteCount += 4 * layers.length;
+		int previousLayerOutputs = network.numInputNeurons;
 		//neuron definition sizes
-		for(NeuralNetworkLayer layer : layers) {
-			for(int i = 0; i < layer.length - 1; i++) {				
-				
-			}
+		for(int layerID = 0; layerID < layers.length; layerID++) {
+			int layerLength = layers[layerID].length;
+			//number of weights
+			floatCount += layerLength * previousLayerOutputs;
+			previousLayerOutputs = layerLength;
 		}
-		return byteCount;
+		return floatCount;
 	}
 
 	

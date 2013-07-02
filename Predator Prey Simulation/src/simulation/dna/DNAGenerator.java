@@ -52,6 +52,18 @@ public class DNAGenerator {
 	}
 
 	public static NeuralNetwork[] generatePredatorNetworks(int count) {
-		return null;
+		NeuralNetwork[] networks = new NeuralNetwork[count];
+		for(int i = 0; i < count; i++) {
+			networks[i] = generatePredatorNetwork();
+		}
+		return networks;
+	}
+
+	public static NeuralNetwork[] generatePreyNetworks(int count) {
+		NeuralNetwork[] networks = new NeuralNetwork[count];
+		for(int i = 0; i < count; i++) {
+			networks[i] = generatePreyNetwork();
+		}
+		return networks;
 	}
 }

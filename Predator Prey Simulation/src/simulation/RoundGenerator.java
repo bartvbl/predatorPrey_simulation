@@ -23,10 +23,13 @@ public class RoundGenerator {
 	private Individual[] currentBatch;
 	private Individual[] currentSmallPopulation;
 
-	public RoundGenerator(Population startPopulation) {
+	private final RobotType type;
+
+	public RoundGenerator(Population startPopulation, RobotType type) {
 		this.population = startPopulation;
 		this.populationSize = startPopulation.length;
 		this.hallOfFame = new Individual[SimulationSettings.hallOfFameSize];
+		this.type = type;
 		currentSmallPopulation = new Individual[populationSize - SimulationSettings.hallOfFameSize];
 	}
 
@@ -53,7 +56,12 @@ public class RoundGenerator {
 			Individual[] randomlyChosenIndividuals = ArrayUtil.pickRandom(currentSmallPopulation, SimulationSettings.randomlyPickedBatchSize);
 			Individual[] reproductionIndividuals = ArrayUtil.concat(hallOfFame, randomlyChosenIndividuals);
 			NeuralNetwork[] reproducedNetworks = Evolver.evolve(reproductionIndividuals);
-			NeuralNetwork[] newRandomNetworks = DNAGenerator.generatePredatorNetworks(populationSize - reproducedNetworks.length);
+			NeuralNetwork[] newRandomNetworks;
+			if(type == RobotType.PREDATOR_RED) {				
+				newRandomNetworks = DNAGenerator.generatePredatorNetworks(populationSize - reproducedNetworks.length);
+			} else {
+				newRandomNetworks = DNAGenerator.generatePreyNetworks(populationSize - reproducedNetworks.length);
+			}
 			NeuralNetwork[] nextPopulationNetworks = ArrayUtil.concat(reproducedNetworks, newRandomNetworks);
 			population = new Population(nextPopulationNetworks);
 		}
