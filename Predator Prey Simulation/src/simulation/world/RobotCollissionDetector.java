@@ -10,7 +10,7 @@ import simulation.RobotType;
 
 public class RobotCollissionDetector {
 
-	public static void removeCollidedPrey(ArrayList<Robot> robots) {
+	public static boolean removeCollidedPrey(ArrayList<Robot> robots) {
 		Point[] robotLocations = getRobotLocations(robots);
 		ArrayList<Integer> removalQueue = new ArrayList<Integer>();
 		for(int i = 0; i < robots.size(); i++) {
@@ -20,9 +20,11 @@ public class RobotCollissionDetector {
 		}
 		for(int i = robots.size() - 1; i >= 0; i--) {
 			if(removalQueue.contains(i)) {
-				robots.remove(i);
+				return true;
+				//robots.remove(i);
 			}
 		}
+		 return false;
 	}
 
 	private static Point[] getRobotLocations(ArrayList<Robot> robots) {

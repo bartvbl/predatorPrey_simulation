@@ -81,6 +81,11 @@ public class RoundGenerator {
 		
 		Individual[] currentPopulationTop = Arrays.copyOf(currentBigPopulation, SimulationSettings.hallOfFameSize);
 		currentBatch = ArrayUtil.concat(hallOfFame, currentPopulationTop);
+		Individual[] repeatedBatch = new Individual[0];
+		for(int i = 0; i < SimulationSettings.hallOfFameBattleRepetitions; i++) {
+			repeatedBatch = ArrayUtil.concat(repeatedBatch, currentBatch);
+		}
+		currentBatch = repeatedBatch;
 		System.arraycopy(currentBigPopulation, SimulationSettings.hallOfFameSize, 
 				currentSmallPopulation, 0, populationSize - SimulationSettings.hallOfFameSize);
 		isFirstCycle = false;

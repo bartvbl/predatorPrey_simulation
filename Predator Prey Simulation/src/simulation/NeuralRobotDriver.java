@@ -6,6 +6,7 @@ import org.lwjgl.input.Keyboard;
 
 import core.SimulationSettings;
 
+import rendering.geom.Point;
 import simulation.neural.NeuralNetwork;
 import simulation.world.World;
 import util.ArrayUtil;
@@ -49,6 +50,10 @@ public class NeuralRobotDriver {
 		
 		world.moveLeftWheel(controlledRobotID, deltaLeftWheel);
 		world.moveRightWheel(controlledRobotID, deltaRightWheel);
+	}
+
+	public Point getLocation() {
+		return world.getRobotLocation(controlledRobotID);
 	}
 
 }

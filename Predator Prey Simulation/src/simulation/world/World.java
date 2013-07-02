@@ -99,8 +99,8 @@ public class World {
 	}
 
 	private Robot getRobotByID(int robotID) {
-		assert(robotID >= 0);
-		assert(robotID < robots.size());
+		if(robotID < 0) throw new IllegalArgumentException("Robot ID must be nonnegative");
+		if(robotID >= robots.size()) throw new IllegalArgumentException("Robot ID is out of bounds");
 		
 		Robot robot = robots.get(robotID);
 		return robot;
@@ -139,8 +139,8 @@ public class World {
 	}
 
 
-	public void checkCollissions() {
-		RobotCollissionDetector.removeCollidedPrey(robots);
+	public boolean checkCollissions() {
+		return RobotCollissionDetector.removeCollidedPrey(robots);
 	}
 
 

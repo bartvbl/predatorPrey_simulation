@@ -1,6 +1,7 @@
 package simulation;
 
 import core.SimulationSettings;
+import rendering.geom.Point;
 import simulation.neural.NeuralNetwork;
 import simulation.world.World;
 
@@ -13,6 +14,7 @@ public class Simulator {
 	private NeuralRobotDriver predatorDriver;
 	private NeuralRobotDriver preyDriver;
 	private boolean isFirstSimulation = true;
+	private boolean robotsCollided;
 
 	public void setWorld(World world) {
 		this.world = world;
@@ -26,7 +28,9 @@ public class Simulator {
 		predatorDriver.simulate();
 		preyDriver.simulate();
 		
-		world.checkCollissions();
+		if(world.checkCollissions()) {
+			robotsCollided = true;
+		}
 		ticksElapsed++;
 		if(ticksElapsed >= SimulationSettings.numRoundTicks) {
 			persuitTimedOut = true;
@@ -34,13 +38,17 @@ public class Simulator {
 	}
 
 	public boolean isFinished() {
-		return RoundEndVerifyer.hasRoundFinished(world, persuitTimedOut);
+		return robotsCollided | persuitTimedOut;
 	}
 
 	public void nextSimulation() {
 		if(!isFirstSimulation) {			
-			double roundFitness = (double) ticksElapsed / (double) SimulationSettings.numRoundTicks;
-			double predatorFitness = 1 - roundFitness;
+			double timeFitness = (double) ticksElapsed / (double) SimulationSettings.numRoundTicks;
+			Point predatorLocation = predatorDriver.getLocation();
+			Point preyLocation = preyDriver.getLocation();
+			double distanceFitness = 0.5 - 0.5 * (predatorLocation.distanceTo(preyLocation) / SimulationSettings.BOARD_WIDTH);
+			double roundFitness = timeFitness + distanceFitness;
+			double predatorFitness = 1.5 - roundFitness;
 			double preyFitness = roundFitness;
 			simulationQueue.registerRoundOutcome(predatorFitness, preyFitness);
 		}
@@ -61,14 +69,20 @@ public class Simulator {
 		NeuralNetwork predatorNetwork = simulationQueue.getCurrentPredatorNetwork();
 		int robotID = world.spawnRobot(RobotType.PREDATOR_RED);
 		predatorDriver = new NeuralRobotDriver(predatorNetwork, robotID, world);
-		
+
 		NeuralNetwork preyNetwork = simulationQueue.getCurrentPreyNetwork();
 		robotID = world.spawnRobot(RobotType.PREY_BLUE);
 		preyDriver = new NeuralRobotDriver(preyNetwork, robotID, world);
 	}
 
 	private void reset() {
+		world.reset();
 		this.ticksElapsed = 0;
 		persuitTimedOut = false;
+		robotsCollided = false;
+	}
+
+	public void registerRoundOutcome() {
+		
 	}
 }

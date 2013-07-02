@@ -33,14 +33,14 @@ public class Main {
 	}
 	
 	private void runSimulation() {
-		world.reset();
+		
 		simulator.nextSimulation();
 		if(round % 1000 == 0) {			
 			System.out.println("Round " + round);
 		}
 		while(isRunning && !simulator.isFinished()) {
 			simulator.updateSimulation();
-			if(((round % 100) == 0) && (shouldRender)) {				
+			if(((round % 1000) == 0) && (shouldRender)) {				
 				renderer.renderFrame();
 			}
 			if(renderer.isWindowCloseRequested()) {

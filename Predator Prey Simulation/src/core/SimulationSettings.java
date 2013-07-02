@@ -49,5 +49,6 @@ public class SimulationSettings {
 																 new Point(14, 8.5),
 																 new Point(14, 5.5),
 																 new Point(14, 9.5)};
+	public static final int hallOfFameBattleRepetitions = 10;
 	
 }
