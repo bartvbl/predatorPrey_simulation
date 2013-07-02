@@ -23,14 +23,14 @@ public class Simulator {
 	}
 	
 	public void updateSimulation() {
-		if(ticksElapsed >= SimulationSettings.numRoundTicks) {
-			persuitTimedOut = true;
-		}
 		predatorDriver.simulate();
 		preyDriver.simulate();
 		
 		world.checkCollissions();
 		ticksElapsed++;
+		if(ticksElapsed >= SimulationSettings.numRoundTicks) {
+			persuitTimedOut = true;
+		}
 	}
 
 	public boolean isFinished() {

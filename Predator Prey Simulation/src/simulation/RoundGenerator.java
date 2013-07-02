@@ -57,6 +57,7 @@ public class RoundGenerator {
 			Individual[] reproductionIndividuals = ArrayUtil.concat(hallOfFame, randomlyChosenIndividuals);
 			NeuralNetwork[] reproducedNetworks = Evolver.evolve(reproductionIndividuals);
 			NeuralNetwork[] newRandomNetworks;
+			System.out.println("nun evolved nbetworks: " + reproducedNetworks.length + " and original population size: " + populationSize);
 			if(type == RobotType.PREDATOR_RED) {				
 				newRandomNetworks = DNAGenerator.generatePredatorNetworks(populationSize - reproducedNetworks.length);
 			} else {

@@ -35,7 +35,9 @@ public class Main {
 	private void runSimulation() {
 		world.reset();
 		simulator.nextSimulation();
-		System.out.println("Round " + round);
+		if(round % 1000 == 0) {			
+			System.out.println("Round " + round);
+		}
 		while(isRunning && !simulator.isFinished()) {
 			simulator.updateSimulation();
 			if(((round % 100) == 0) && (shouldRender)) {				

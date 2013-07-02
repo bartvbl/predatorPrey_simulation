@@ -11,10 +11,8 @@ import simulation.neural.Neuron;
 import simulation.neural.SigmoidNeuron;
 
 public class DNAReader {
-	public static NeuralNetwork read(float[] dna, int numInputNeurons) {
+	public static NeuralNetwork read(FloatBuffer weightBuffer, int numInputNeurons) {
 		NeuralNetworkLayer[] layers = new NeuralNetworkLayer[SimulationSettings.neuralNetworkHiddenLayerSizes.length];
-		FloatBuffer weightBuffer = BufferUtils.createFloatBuffer(dna.length);
-		weightBuffer.put(dna);
 		weightBuffer.rewind();
 		int previousLayerAxonCount = numInputNeurons;
 		for(int i = 0; i < layers.length; i++) {

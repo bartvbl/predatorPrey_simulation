@@ -18,7 +18,7 @@ public class Evolver {
 	public static NeuralNetwork[] evolve(Individual[] reproductionIndividuals) {
 		int individualCount = reproductionIndividuals.length;
 		int reproductionCount = SimulationSettings.reproductionCount * individualCount;
-		NeuralNetwork[] reproducedNetworks = new NeuralNetwork[individualCount * reproductionCount];
+		NeuralNetwork[] reproducedNetworks = new NeuralNetwork[reproductionCount];
 		
 		float[][] individualDNA = new float[individualCount][0];
 		for(int i = 0; i < reproductionIndividuals.length; i++) {
@@ -28,7 +28,7 @@ public class Evolver {
 		
 		int reproductionIndex = 0;
 		for(int i = 0; i < individualCount; i++) {
-			for(int j = 0; j < reproductionCount; j++) {
+			for(int j = 0; j < SimulationSettings.reproductionCount; j++) {
 				reproducedNetworks[reproductionIndex] = reproduce(individualDNA[i], reproductionIndividuals[i].neuralNetwork, individualDNA);
 				reproductionIndex++;
 			}
@@ -55,7 +55,7 @@ public class Evolver {
 			reproducedBuffer.put(DNAPart);
 		}
 		reproducedBuffer.rewind();
-		return DNAReader.read(reproducedBuffer.array(), individualNetwork.numInputNeurons);
+		return DNAReader.read(reproducedBuffer, individualNetwork.numInputNeurons);
 	}
 	
 }
