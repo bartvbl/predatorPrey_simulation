@@ -38,17 +38,13 @@ public class Simulator {
 	}
 
 	public boolean isFinished() {
-		return robotsCollided | persuitTimedOut;
+		return robotsCollided || persuitTimedOut;
 	}
 
 	public void nextSimulation() {
 		if(!isFirstSimulation) {			
-			double timeFitness = (double) ticksElapsed / (double) SimulationSettings.numRoundTicks;
-			Point predatorLocation = predatorDriver.getLocation();
-			Point preyLocation = preyDriver.getLocation();
-			double distanceFitness = 0.5 - 0.5 * (predatorLocation.distanceTo(preyLocation) / SimulationSettings.BOARD_WIDTH);
-			double roundFitness = timeFitness + distanceFitness;
-			double predatorFitness = 1.5 - roundFitness;
+			double roundFitness = (double) ticksElapsed / (double) SimulationSettings.numRoundTicks;
+			double predatorFitness = 1 - roundFitness;
 			double preyFitness = roundFitness;
 			simulationQueue.registerRoundOutcome(predatorFitness, preyFitness);
 		}
@@ -80,9 +76,5 @@ public class Simulator {
 		this.ticksElapsed = 0;
 		persuitTimedOut = false;
 		robotsCollided = false;
-	}
-
-	public void registerRoundOutcome() {
-		
 	}
 }

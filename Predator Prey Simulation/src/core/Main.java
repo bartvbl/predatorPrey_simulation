@@ -40,7 +40,7 @@ public class Main {
 		}
 		while(isRunning && !simulator.isFinished()) {
 			simulator.updateSimulation();
-			if(((round % 1000) == 0) && (shouldRender)) {				
+			if(((round % 10000) == 0) && (shouldRender)) {				
 				renderer.renderFrame();
 			}
 			if(renderer.isWindowCloseRequested()) {

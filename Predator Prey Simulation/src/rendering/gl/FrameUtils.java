@@ -17,7 +17,7 @@ public class FrameUtils {
 		Display.setDisplayMode(new DisplayMode(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));
 		Display.create();
 		Display.setResizable(true);
-		Display.setTitle("Shooter");
+		Display.setTitle("Predator Prey");
 		glViewport(0, 0, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();

@@ -22,6 +22,7 @@ public class RoundGenerator {
 	private Individual[] currentBigPopulation;
 	private Individual[] currentBatch;
 	private Individual[] currentSmallPopulation;
+	private int cycle = 0;
 
 	private final RobotType type;
 
@@ -48,6 +49,8 @@ public class RoundGenerator {
 
 	private void preparePopulationBattle() {
 		if(!isFirstCycle) {
+			cycle++;
+			System.out.println("Completed cycle: " + cycle);
 			Arrays.sort(currentBatch);
 			Individual[] newHallOfFame = Arrays.copyOf(hallOfFame, SimulationSettings.hallOfFameSize);
 			hallOfFame = newHallOfFame;

@@ -1,5 +1,7 @@
 package simulation;
 
+import java.util.ArrayList;
+
 import rendering.geom.Point;
 import core.SimulationSettings;
 
@@ -42,5 +44,10 @@ public class Robot {
 		} else {
 			return SimulationSettings.preySpeed;
 		}
+	}
+
+	public ArrayList<Point> getVisitedPoints() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
