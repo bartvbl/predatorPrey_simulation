@@ -48,8 +48,8 @@ public class Simulator {
 			double predatorFitness = 1 - roundFitness;
 			double preyFitness = roundFitness;
 			if(ticksElapsed <= SimulationSettings.ticksPreyCanWin) {
-				predatorFitness = roundFitness;
-				preyFitness = SimulationSettings.preyWinFitnessBoost * (1 - roundFitness);
+				//predatorFitness = roundFitness;
+				//preyFitness = SimulationSettings.preyWinFitnessBoost * (1 - roundFitness);
 			}
 			simulationQueue.registerRoundOutcome(predatorFitness, preyFitness);
 		}

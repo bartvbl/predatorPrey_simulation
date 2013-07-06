@@ -26,6 +26,8 @@ public class RoundGenerator {
 
 	private final RobotType type;
 
+	private int repeatCount = 0;
+
 	public RoundGenerator(Population startPopulation, RobotType type) {
 		this.population = startPopulation;
 		this.populationSize = startPopulation.length;
@@ -35,6 +37,10 @@ public class RoundGenerator {
 	}
 
 	public void nextBatch() {
+		if(repeatCount > 0) {
+			repeatCount--;
+			return;
+		}
 		if(roundState == RoundState.POPULATION_BATTLE) {			
 			Main.shouldRender = false;
 			preparePopulationBattle();
@@ -44,7 +50,7 @@ public class RoundGenerator {
 				prepareHallOfFameBattle();
 			}
 		}
-		System.out.println("next batch: " + currentBatch.length);
+		System.out.println("next batch: " + currentBatch.length + " at round " + Main.round);
 	}
 
 	private void preparePopulationBattle() {
@@ -52,7 +58,7 @@ public class RoundGenerator {
 			cycle++;
 			System.out.println("Completed cycle: " + cycle);
 			Arrays.sort(currentBatch);
-			Individual[] newHallOfFame = Arrays.copyOf(hallOfFame, SimulationSettings.hallOfFameSize);
+			Individual[] newHallOfFame = Arrays.copyOf(currentBatch, SimulationSettings.hallOfFameSize);
 			hallOfFame = newHallOfFame;
 			System.out.println(Arrays.toString(hallOfFame));
 			resetFitnessValues(hallOfFame);
@@ -60,7 +66,6 @@ public class RoundGenerator {
 			Individual[] reproductionIndividuals = ArrayUtil.concat(hallOfFame, randomlyChosenIndividuals);
 			NeuralNetwork[] reproducedNetworks = Evolver.evolve(reproductionIndividuals);
 			NeuralNetwork[] newRandomNetworks;
-			System.out.println("nun evolved nbetworks: " + reproducedNetworks.length + " and original population size: " + populationSize);
 			if(type == RobotType.PREDATOR_RED) {				
 				newRandomNetworks = DNAGenerator.generatePredatorNetworks(populationSize - reproducedNetworks.length);
 			} else {
@@ -84,11 +89,7 @@ public class RoundGenerator {
 		Arrays.sort(currentBigPopulation);
 		Individual[] currentPopulationTop = Arrays.copyOf(currentBigPopulation, SimulationSettings.hallOfFameSize);
 		currentBatch = ArrayUtil.concat(hallOfFame, currentPopulationTop);
-		Individual[] repeatedBatch = new Individual[0];
-		for(int i = 0; i < SimulationSettings.hallOfFameBattleRepetitions; i++) {
-			repeatedBatch = ArrayUtil.concat(repeatedBatch, currentBatch);
-		}
-		currentBatch = repeatedBatch;
+		repeatCount = SimulationSettings.hallOfFameBattleRepetitions;
 		System.arraycopy(currentBigPopulation, SimulationSettings.hallOfFameSize, 
 				currentSmallPopulation, 0, populationSize - SimulationSettings.hallOfFameSize);
 		isFirstCycle = false;

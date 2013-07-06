@@ -45,14 +45,14 @@ public class SimulationSettings {
 	public static final double crossOverProbability = 0.1;
 	public static final int hallOfFameBattleRepetitions = 10;
 	
-	public static final Point[] predatorStartLocations = new Point[]{new Point(1, 5), 
+	public static final Point[] predatorStartLocations = new Point[]{new Point(2.5, 5), 
 																	 new Point(1, 6),
-																	 new Point(1, 4),
+																	 new Point(2.5, 4),
 																	 new Point(1, 7),
 																	 new Point(1, 3)};
-	public static final Point[] preyStartLocations = new Point[]{new Point(9, 5), 
+	public static final Point[] preyStartLocations = new Point[]{new Point(7.5, 5), 
 																 new Point(9, 6),
-																 new Point(9, 4),
+																 new Point(7.5, 4),
 																 new Point(9, 7),
 																 new Point(9, 3)};
 	

@@ -13,7 +13,7 @@ public class Main {
 	private final World world;
 	private final Renderer renderer;
 	private boolean isRunning = true;
-	private int round = 0;
+	public static int round = 0;
 	public static boolean shouldRender = false;
 	
 	public Main() {
@@ -40,7 +40,7 @@ public class Main {
 		}
 		while(isRunning && !simulator.isFinished()) {
 			simulator.updateSimulation();
-			if(((round % 10000) == 0) && (shouldRender)) {				
+			if(((round % 2000) == 0) && (shouldRender)) {				
 				renderer.renderFrame();
 			}
 			if(renderer.isWindowCloseRequested()) {
