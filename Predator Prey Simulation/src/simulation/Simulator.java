@@ -14,7 +14,7 @@ public class Simulator {
 	private NeuralRobotDriver predatorDriver;
 	private NeuralRobotDriver preyDriver;
 	private boolean isFirstSimulation = true;
-	private boolean robotsCollided;
+	private boolean robotsCollided = false;
 
 	public void setWorld(World world) {
 		this.world = world;
@@ -25,8 +25,9 @@ public class Simulator {
 	}
 	
 	public void updateSimulation() {
-		predatorDriver.simulate();
-		preyDriver.simulate();
+		double normalisedTicks = (double) this.ticksElapsed / (double) SimulationSettings.numRoundTicks;
+		predatorDriver.simulate(normalisedTicks);
+		preyDriver.simulate(normalisedTicks);
 		
 		if(world.checkCollissions()) {
 			robotsCollided = true;
@@ -46,6 +47,10 @@ public class Simulator {
 			double roundFitness = (double) ticksElapsed / (double) SimulationSettings.numRoundTicks;
 			double predatorFitness = 1 - roundFitness;
 			double preyFitness = roundFitness;
+			if(ticksElapsed <= SimulationSettings.ticksPreyCanWin) {
+				predatorFitness = roundFitness;
+				preyFitness = SimulationSettings.preyWinFitnessBoost * (1 - roundFitness);
+			}
 			simulationQueue.registerRoundOutcome(predatorFitness, preyFitness);
 		}
 		

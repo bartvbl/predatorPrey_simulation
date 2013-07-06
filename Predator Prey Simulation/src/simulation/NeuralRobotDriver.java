@@ -28,9 +28,9 @@ public class NeuralRobotDriver {
 		Arrays.fill(previousNetworkOutput, 0.5);
 	}
 
-	public void simulate() {
+	public void simulate(double normalisedTicks) {
 		double[] inputAxonValues = previousNetworkOutput;
-		
+		inputAxonValues = ArrayUtil.concat(inputAxonValues, new double []{normalisedTicks});
 		double[] distanceSensorReadings = DistanceSensorReader.calculateDistanceSensorReadings(controlledRobotID, world);
 		inputAxonValues = ArrayUtil.concat(inputAxonValues, distanceSensorReadings);
 		

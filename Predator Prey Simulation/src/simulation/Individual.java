@@ -28,14 +28,14 @@ public class Individual implements Comparable<Individual> {
 	public int compareTo(Individual otherIndividual) {
 		double averageFitness = this.getAverageFitness();
 		double otherAverageFitness = otherIndividual.getAverageFitness();
-		
+		//sorts in reverse order to get highest scoring individuals in front
 		if(averageFitness > otherAverageFitness) {
-			return 1;
+			return -1;
 		}
 		if(averageFitness == otherAverageFitness) {
 			return 0;
 		}
-		return -1;
+		return 1;
 	}
 
 	public void resetFitness() {

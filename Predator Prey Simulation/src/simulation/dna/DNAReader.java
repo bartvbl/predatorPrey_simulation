@@ -21,10 +21,11 @@ public class DNAReader {
 			Neuron[] neurons = new Neuron[layerLength];
 			
 			for(int neuronID = 0; neuronID < layerLength; neuronID++) {
+				double threshold = weightBuffer.get();
 				for(int j = 0; j < weights.length; j++) {
 					weights[j] = (double) weightBuffer.get();
 				}
-				neurons[neuronID] = new SigmoidNeuron(0, weights);
+				neurons[neuronID] = new SigmoidNeuron(threshold, weights);
 			}
 			layers[i] = new NeuralNetworkLayer(neurons);
 			

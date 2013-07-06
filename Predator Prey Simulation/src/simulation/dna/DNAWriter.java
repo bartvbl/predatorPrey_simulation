@@ -18,6 +18,9 @@ public class DNAWriter {
 		for(int layerID = 0; layerID < layers.length; layerID++) {
 			NeuralNetworkLayer layer = layers[layerID];
 			for(int neuron = 0; neuron < layer.length; neuron++) {
+				double threshold = layer.getNeuronThreshold(neuron);
+				dna[dnaPointer] = (float) threshold;
+				dnaPointer++;
 				double[] neuronWeights = layer.getNeuronWeights(neuron);
 				for(double weight : neuronWeights) {
 					dna[dnaPointer] = (float) weight;
@@ -36,6 +39,7 @@ public class DNAWriter {
 			int layerLength = layers[layerID].length;
 			//number of weights
 			floatCount += layerLength * previousLayerOutputs;
+			floatCount += layerLength;
 			previousLayerOutputs = layerLength;
 		}
 		return floatCount;

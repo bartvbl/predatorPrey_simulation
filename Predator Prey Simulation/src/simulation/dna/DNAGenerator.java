@@ -36,7 +36,7 @@ public class DNAGenerator {
 		Neuron[] layer = new Neuron[layerSize];
 		for(int i = 0; i < layerSize; i++) {
 			double[] dentriteWeights = generateRandomWeights(previousLayerSize);
-			double threshold = random.nextDouble();
+			double threshold = (2*random.nextDouble()) - 1;
 			layer[i] = new SigmoidNeuron(threshold, dentriteWeights);
 		}
 		return layer;
