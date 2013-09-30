@@ -89,6 +89,7 @@ public class RoundGenerator {
 		Arrays.sort(currentBigPopulation);
 		Individual[] currentPopulationTop = Arrays.copyOf(currentBigPopulation, SimulationSettings.hallOfFameSize);
 		currentBatch = ArrayUtil.concat(hallOfFame, currentPopulationTop);
+		resetFitnessValues(currentBatch);
 		repeatCount = SimulationSettings.hallOfFameBattleRepetitions;
 		System.arraycopy(currentBigPopulation, SimulationSettings.hallOfFameSize, 
 				currentSmallPopulation, 0, populationSize - SimulationSettings.hallOfFameSize);

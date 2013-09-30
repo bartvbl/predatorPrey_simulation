@@ -21,7 +21,6 @@ public class SimulationSettings {
 	
 	public static final int numRoundTicks = 3000;
 	public static final double ticksPreyCanWin = 1000;
-	public static final double preyWinFitnessBoost = 1.2;
 	
 	public static final double[] distanceSensorDirections = new double[]{70, 290, 47, 313, 24, 337, 160, 200};
 	public static final double distanceSensorRange = 0.45;
